@@ -1,0 +1,126 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/* Navmenu */
+.mobile-nav-toggle {
+  color: var(--nav-color);
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 32px;
+  line-height: 0;
+  cursor: pointer;
+  display: block !important;
+  z-index: 998;
+  transition: 0.3s;
+
+  &:hover {
+    color: var(--nav-hover-color);
+  }
+}
+
+.navmenu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: -300px;
+  z-index: 997;
+  transition: 0.3s;
+  width: 300px;
+  overflow: hidden;
+  background-color: var(--nav-mobile-background-color);
+
+  ul {
+    display: block;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 998;
+  }
+
+  a,
+  a:focus {
+    color: var(--nav-dropdown-color);
+    padding: 10px 20px;
+    font-family: var(--nav-font);
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    transition: 0.3s;
+
+    i {
+      font-size: 12px;
+      line-height: 0;
+      margin-left: 5px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: 0.3s;
+      background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+
+      &:hover {
+        background-color: var(--accent-color);
+        color: var(--contrast-color);
+      }
+    }
+  }
+
+  a:hover,
+  .active,
+  .active:focus {
+    color: var(--nav-dropdown-hover-color);
+  }
+
+  .active i,
+  .active:focus i {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+    transform: rotate(180deg);
+  }
+
+  .dropdown {
+    ul {
+      position: static;
+      display: none;
+      z-index: 99;
+      padding: 10px 0;
+      margin: 10px 20px;
+      box-shadow: none;
+      transition: all .5s ease-in-out;
+    }
+
+    >.dropdown-active {
+      display: block;
+      background-color: var(--nav-dropdown-background-color);
+      border: 1px solid color-mix(in srgb, var(--nav-dropdown-color), transparent 90%);
+    }
+  }
+}
+
+.mobile-nav-active {
+  overflow: hidden;
+
+  .mobile-nav-toggle {
+    right: 310px;
+    font-size: 36px;
+  }
+
+  .navmenu {
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: var(--nav-mobile-background-color);
+    transition: 0.3s;
+  }
+}
