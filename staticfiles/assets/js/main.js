@@ -1,9 +1,6 @@
 /**
-* Template Name: BookLanding
-* Template URL: https://bootstrapmade.com/bootstrap-book-landing-page-template/
-* Updated: Mar 02 2025 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
+* TUM Albanian Society Website
+* Custom JavaScript functionality
 */
 
 (function() {

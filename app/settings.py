@@ -82,7 +82,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
+# askdfjhaskldfhjaslkdfjh
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -187,7 +187,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Production Security Settings
+# # Production Security Settings
 if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
