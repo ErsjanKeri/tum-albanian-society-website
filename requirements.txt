@@ -1,4 +1,5 @@
 asgiref==3.8.1
+dj-database-url==2.1.0
 Django==5.1.7
 pillow==11.1.0
 psycopg2-binary==2.9.10

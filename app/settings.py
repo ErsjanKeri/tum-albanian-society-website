@@ -96,20 +96,34 @@ if DEBUG:
         }
     }
 else:
-    # Production - PostgreSQL (Vercel Postgres or other cloud DB)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('POSTGRES_DATABASE'),
-            'USER': os.environ.get('POSTGRES_USER'),
-            'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-            'HOST': os.environ.get('POSTGRES_HOST'),
-            'PORT': os.environ.get('POSTGRES_PORT', '5432'),
-            'OPTIONS': {
-                'sslmode': 'require',
-            },
+    # Production - Use Supabase PostgreSQL URL
+    postgres_url = os.environ.get('POSTGRES_URL')
+    
+    if postgres_url:
+        # Parse the Supabase PostgreSQL URL
+        import dj_database_url
+        DATABASES = {
+            'default': dj_database_url.parse(postgres_url, conn_max_age=600)
         }
-    }
+        # Ensure SSL is enabled for Supabase
+        DATABASES['default']['OPTIONS'] = {
+            'sslmode': 'require',
+        }
+    else:
+        # Fallback to individual environment variables
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.environ.get('POSTGRES_DATABASE'),
+                'USER': os.environ.get('POSTGRES_USER'),
+                'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+                'HOST': os.environ.get('POSTGRES_HOST'),
+                'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+                'OPTIONS': {
+                    'sslmode': 'require',
+                },
+            }
+        }
 
 
 # Password validation
