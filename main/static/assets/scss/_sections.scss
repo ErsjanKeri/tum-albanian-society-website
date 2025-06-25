@@ -1,0 +1,41 @@
+/*--------------------------------------------------------------
+# Global Sections
+--------------------------------------------------------------*/
+section,
+.section {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 60px 0;
+  overflow: clip;
+}
+
+/*--------------------------------------------------------------
+# Global Section Titles
+--------------------------------------------------------------*/
+.section-title {
+  text-align: center;
+  padding-bottom: 60px;
+  position: relative;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+@import './sections/_hero.scss';
+@import './sections/_about.scss';
+@import './sections/_features.scss';
+@import './sections/_excerpt.scss';
+@import './sections/_about-author.scss';
+@import './sections/_testimonials.scss';
+@import './sections/_purchase.scss';
+@import './sections/_faq.scss';
+@import './sections/_contact.scss';
+@import './sections/_related-books.scss';
+@import './sections/_call-to-action.scss';

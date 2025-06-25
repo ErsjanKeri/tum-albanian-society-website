@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %} 
+{% load static %} 
+
+{% block content %}
+<main id="main">
+  <section id="error-page" class="error-page">
+    <div class="container text-center" data-aos="fade-up">
+      <div class="error-content">
+        <h1 class="display-1 fw-bold text-danger">404</h1>
+        <h2 class="fw-semibold">Oops... Page Not Found</h2>
+        <p class="lead">
+          The page <span class="fw-bold text-muted">{{ request }}</span> does not exist or may have been moved.
+        </p>
+        <p>
+          Please check the URL for errors or use the navigation menu to find what you're looking for.
+        </p>
+        
+        <a href="{% url 'index' %}" class="btn btn-primary mt-3">
+          Return to Home Page
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+
+
+<style>
+  .error-page {
+    padding: 100px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+  }
+  .error-content {
+    max-width: 600px;
+    margin: auto;
+  }
+  .btn-primary {
+    background-color: #d10000;
+    border-color: #d10000;
+    padding: 10px 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .btn-primary:hover {
+    background-color: #a80000;
+    border-color: #a80000;
+  }
+</style>
+
+{% endblock %}

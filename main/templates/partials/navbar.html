@@ -1,0 +1,120 @@
+{% load static %} 
+{% load i18n %} 
+{% get_language_info for LANGUAGE_CODE as lang %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<header id="header" class="header d-flex align-items-center position-relative">
+	<div class="container-fluid d-flex align-items-center justify-content-between">
+		<a href="#" class="logo d-flex align-items-center me-3">
+			<img src="{% static '/assets/img/logowithtext.png' %}" alt="Logo" />
+		</a>	
+		
+		<div class="language-selector">
+			<form id="langForm" action="{% url 'set_language' %}" method="post">
+				{% csrf_token %}
+				<input name="next" type="hidden" value="{{ request.path }}">
+				<select name="language" onchange="this.form.submit();">
+					{% get_available_languages as LANGUAGES %}
+					{% get_language_info_list for LANGUAGES as languages %}
+					{% for language in languages %}
+						{% if language.name_local == 'shqip' %} 
+							<option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+								Shqip
+							</option>
+						{% else %}
+							<option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+								{{ language.name_local }}
+							</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+			</form>
+		</div>
+
+		<nav id="navmenu" class="navmenu">
+			<ul>
+				{% if LANGUAGE_CODE == 'sq' %}
+					<li><a href="#hero" class="active">Kryefaqja</a></li>
+					<li><a href="#about">Rreth Nesh</a></li>
+					<li><a href="#mission">Misioni Ynë</a></li>
+					<li><a href="#team">Ekipi Ynë</a></li>
+					<li><a href="#events">Aktivitetet</a></li>
+					<li><a href="#tech">Teknologjia Për Të Mirën</a></li>
+					<li><a href="#contact">Kontakti</a></li>
+				{% elif LANGUAGE_CODE == 'de' %}
+					<li><a href="#hero" class="active">Startseite</a></li>
+					<li><a href="#about">Über Uns</a></li>
+					<li><a href="#mission">Unsere Mission</a></li>
+					<li><a href="#team">Unser Team</a></li>
+					<li><a href="#events">Veranstaltungen</a></li>
+					<li><a href="#tech">Tech For Good</a></li>
+					<li><a href="#contact">Kontakt</a></li>
+				{% else %}
+					<li><a href="#hero" class="active">Home</a></li>
+					<li><a href="#about">About Us</a></li>
+					<li><a href="#mission">Our Mission</a></li>
+					<li><a href="#team">Our Team</a></li>
+					<li><a href="#events">Events</a></li>
+					<li><a href="#tech">Tech For Good</a></li>
+					<li><a href="#contact">Contact</a></li>
+				{% endif %}
+			</ul>
+			<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.language-selector {
+		margin-right: 55px;
+	}
+	
+	.language-selector select {
+		font-family: var(--nav-font);
+		font-size: 14px;
+		font-weight: 500;
+		background-color: var(--surface-color);
+		color: var(--nav-color);
+		border: 1px solid var(--accent-color);
+		border-radius: 50px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		padding: 8px 16px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e50914' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: calc(100% - 12px) center;
+		padding-right: 30px;
+	}
+	
+	.language-selector select:hover, 
+	.language-selector select:focus {
+		outline: none;
+		background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+		transform: translateY(-3px);
+		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+	}
+	
+	.language-selector select option {
+		font-size: 14px;
+		font-weight: 400;
+		background-color: var(--surface-color);
+		color: var(--default-color);
+		padding: 10px;
+	}
+	
+	@media (max-width: 768px) {
+		.language-selector {
+			position: absolute;
+			top: 18px;
+			right: 80px;
+		}
+		
+		.language-selector select {
+			padding: 6px 30px 6px 12px;
+			font-size: 12px;
+		}
+	}
+</style>

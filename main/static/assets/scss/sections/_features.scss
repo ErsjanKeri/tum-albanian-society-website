@@ -1,0 +1,187 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Features Section
+--------------------------------------------------------------*/
+.features {
+  padding: 80px 0;
+  overflow: hidden;
+
+  .feature-card {
+    background-color: var(--surface-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 40px;
+      background-color: var(--accent-color);
+      transition: height 0.3s ease;
+    }
+
+    .feature-icon {
+      margin-bottom: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        font-size: 24px;
+        color: var(--accent-color);
+      }
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--heading-color);
+    }
+
+    p {
+      color: var(--default-color);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+
+      &::before {
+        height: 70px;
+      }
+    }
+  }
+
+  .feature-chapters {
+    margin-top: 50px;
+    background-color: var(--surface-color);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--heading-color);
+      margin-bottom: 30px;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 50%;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+    }
+
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 25px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+
+      .chapter-item {
+        text-align: left;
+        padding: 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        background-color: color-mix(in srgb, var(--background-color), transparent 5%);
+        border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+
+        .chapter-number {
+          font-size: 18px;
+          font-weight: 700;
+          color: var(--accent-color);
+          display: block;
+          margin-bottom: 10px;
+        }
+
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--heading-color);
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 14px;
+          color: var(--default-color);
+          margin-bottom: 0;
+        }
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+          border-color: color-mix(in srgb, var(--accent-color), transparent 70%);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .section-intro {
+      h2 {
+        font-size: 28px;
+      }
+    }
+
+    .feature-chapters {
+      padding: 30px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section-intro {
+      h2 {
+        font-size: 24px;
+      }
+    }
+
+    .feature-card {
+      padding: 25px;
+
+      .feature-icon {
+        width: 50px;
+        height: 50px;
+
+        i {
+          font-size: 20px;
+        }
+      }
+
+      h3 {
+        font-size: 18px;
+      }
+    }
+
+    .feature-chapters {
+      padding: 25px;
+
+      h3 {
+        font-size: 22px;
+      }
+    }
+  }
+}

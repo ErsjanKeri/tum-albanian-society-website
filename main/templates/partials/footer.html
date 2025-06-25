@@ -1,0 +1,34 @@
+{% load static %}
+{% load i18n %} 
+{% get_current_language as LANGUAGE_CODE %}
+
+<footer id="footer" class="footer">
+	<div class="container">
+		{% if LANGUAGE_CODE == 'sq' %}
+			<h3 class="sitename">{{ footer.sitename_sq }}</h3>
+			<p>{{ footer.description_sq }}</p>
+		{% elif LANGUAGE_CODE == 'de' %}
+			<h3 class="sitename">{{ footer.sitename_de }}</h3>
+			<p>{{ footer.description_de }}</p>
+		{% else %}
+			<h3 class="sitename">{{ footer.sitename_en }}</h3>
+			<p>{{ footer.description_en }}</p>
+		{% endif %}
+		
+		<div class="social-links d-flex justify-content-center">
+			<a href="https://www.instagram.com/albanian_students_tum?igsh=MTNkb3NiZ2VhY2IybQ=="><i class="bi bi-instagram"></i></a>
+			<a href="#"><i class="bi bi-whatsapp"></i></a>
+			<a href="#"><i class="bi bi-linkedin"></i></a>
+		</div>
+
+		<div class="copyright">
+			{% if LANGUAGE_CODE == 'sq' %}
+				<span>{{ footer.copyright_sq }}</span>
+			{% elif LANGUAGE_CODE == 'de' %}
+				<span>{{ footer.copyright_de }}</span>
+			{% else %}
+				<span>{{ footer.copyright_en }}</span>
+			{% endif %}
+		</div>
+	</div>
+</footer>

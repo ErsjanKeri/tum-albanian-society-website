@@ -1,0 +1,630 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<main class="main">
+	<!-- Hero Section -->
+	<section id="hero" class="hero section">
+		<div class="container" data-aos="fade-up" data-aos-delay="100">
+			<div class="row align-items-center justify-content-center">
+				<div class="col-lg-8 text-center">
+					<div class="book-hero-content" data-aos="fade-up" data-aos-delay="200">
+						{% if LANGUAGE_CODE == 'sq' %}
+						<span class="book-genre">{{ hero.st_org_sq }}</span>
+						<h1>{{ hero.title_sq }}</h1>
+						<p class="book-subtitle">{{ hero.subtitle_sq }}</p>
+						<div class="author">
+							<h3>{{ hero.start_sq }}</h3>
+						</div>
+						<p class="book-description">{{ hero.description_sq }}</p>
+						<div class="hero-cta">
+							<a href="#contact" class="btn-primary">{{ hero.join_us_btn_sq }}</a>
+							<a href="#about" class="btn-outline">{{ hero.learn_more_btn_sq }}</a>
+						</div>
+						{% elif LANGUAGE_CODE == 'de' %}
+						<span class="book-genre">{{ hero.st_org_de }}</span>
+						<h1>{{ hero.title_de }}</h1>
+						<p class="book-subtitle">{{ hero.subtitle_de }}</p>
+						<div class="author">
+							<h3>{{ hero.start_de }}</h3>
+						</div>
+						<p class="book-description">{{ hero.description_de }}</p>
+						<div class="hero-cta">
+							<a href="#contact" class="btn-primary">{{ hero.join_us_btn_de }}</a>
+							<a href="#about" class="btn-outline">{{ hero.learn_more_btn_de }}</a>
+						</div>
+						{% else %}
+						<span class="book-genre">{{ hero.st_org_en }}</span>
+						<h1>{{ hero.title_en }}</h1>
+						<p class="book-subtitle">{{ hero.subtitle_en }}</p>
+						<div class="author">
+							<h3>{{ hero.start_en }}</h3>
+						</div>
+						<p class="book-description">{{ hero.description_en }}</p>
+						<div class="hero-cta">
+							<a href="#contact" class="btn-primary">{{ hero.join_us_btn_en }}</a>
+							<a href="#about" class="btn-outline">{{ hero.learn_more_btn_en }}</a>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /Hero Section -->
+
+	<!-- About Section -->
+	<section id="about" class="about section light-background">
+		<div class="container" data-aos="fade-up" data-aos-delay="5000">
+			<div class="row align-items-center gy-5 gx-lg-5">
+				<div class="col-lg-6">
+					<div class="about-book-img" data-aos="fade-right" data-aos-delay="100">
+						<img src="{% static './assets/img/team.jpeg' %}" alt="TUM Albanian Society" class="img-fluid" />
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="about-book-content" data-aos="fade-left" data-aos-delay="200">
+						{% if LANGUAGE_CODE == 'sq' %}
+						<h2>{{ about_section.title_sq }}</h2>
+						<div class="book-category">
+							<span><i class="bi bi-bookmark"></i> {{ about_section.category_sq }}</span>
+						</div>
+						<p>{{ about_section.description_sq }}</p>
+
+						<div class="highlights">
+							<h3>{{ about_section.offer_title_sq }}</h3>
+							<ul>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point1_sq }}</span>
+								</li>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point2_sq }}</span>
+								</li>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point3_sq }}</span>
+								</li>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point4_sq }}</span>
+								</li>
+							</ul>
+						</div>
+
+						<a href="#contact" class="about-book-cta">
+							{{ about_section.button_text_sq }} <i class="bi bi-arrow-right"></i>
+						</a>
+						{% elif LANGUAGE_CODE == 'de' %}
+						<h2>{{ about_section.title_de }}</h2>
+						<div class="book-category">
+							<span><i class="bi bi-bookmark"></i> {{ about_section.category_de }}</span>
+						</div>
+						<p>{{ about_section.description_de }}</p>
+
+						<div class="highlights">
+							<h3>{{ about_section.offer_title_de }}</h3>
+							<ul>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point1_de }}</span>
+								</li>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point2_de }}</span>
+								</li>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point3_de }}</span>
+								</li>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point4_de }}</span>
+								</li>
+							</ul>
+						</div>
+
+						<a href="#contact" class="about-book-cta">
+							{{ about_section.button_text_de }} <i class="bi bi-arrow-right"></i>
+						</a>
+						{% else %}
+						<h2>{{ about_section.title_en }}</h2>
+						<div class="book-category">
+							<span><i class="bi bi-bookmark"></i> {{ about_section.category_en }}</span>
+						</div>
+						<p>{{ about_section.description_en }}</p>
+
+						<div class="highlights">
+							<h3>{{ about_section.offer_title_en }}</h3>
+							<ul>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point1_en }}</span>
+								</li>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point2_en }}</span>
+								</li>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point3_en }}</span>
+								</li>
+								<li>
+									<i class="bi bi-check-circle"></i>
+									<span>{{ about_section.offer_point4_en }}</span>
+								</li>
+							</ul>
+						</div>
+
+						<a href="#contact" class="about-book-cta">
+							{{ about_section.button_text_en }} <i class="bi bi-arrow-right"></i>
+						</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /About Section -->
+
+	<!-- Mission Section -->
+	<section id="mission" class="features section">
+
+		<!-- Section Title -->
+		<div class="container section-title">
+			{% if LANGUAGE_CODE == 'sq' %}
+			<h2>{{ mission.title_sq }}</h2>
+			<p>{{ mission.mission_subtitle_sq }}</p>
+			{% elif LANGUAGE_CODE == 'de' %}
+			<h2>{{ mission.title_de }}</h2>
+			<p>{{ mission.mission_subtitle_de }}</p>
+			{% else %}
+			<h2>{{ mission.title_en }}</h2>
+			<p>{{ mission.mission_subtitle_en }}</p>
+			{% endif %}
+		</div>
+		<!-- End Section Title -->
+
+		<div class="container">
+			<div class="row gy-4">
+				{% for mission in missionTexts %}
+				<div class="col-md-6 col-lg-4">
+					<div class="feature-card">
+						<div class="feature-icon"> <i class="{{ mission.typeLogo }}"></i> </div>
+						{% if LANGUAGE_CODE == 'sq' %}
+						<h3>{{ mission.title_sq }}</h3>
+						<p>{{ mission.content_sq }}</p>
+						{% elif LANGUAGE_CODE == 'de' %}
+						<h3>{{ mission.title_de }}</h3>
+						<p>{{ mission.content_de }}</p>
+						{% else %}
+						<h3>{{ mission.title_en }}</h3>
+						<p>{{ mission.content_en }}</p>
+						{% endif %}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- End Mission Section -->
+
+	<!-- Team Section -->
+	<section id="team" class="related-books section light-background">
+		<!-- Section Title -->
+		<div class="container section-title">
+			{% if LANGUAGE_CODE == 'sq' %}
+			<h2>{{ founding_members.title_sq }}</h2>
+			<p>{{ founding_members.description_sq }}</p>
+			{% elif LANGUAGE_CODE == 'de' %}
+			<h2>{{ founding_members.title_de }}</h2>
+			<p>{{ founding_members.description_de }}</p>
+			{% else %}
+			<h2>{{ founding_members.title_en }}</h2>
+			<p>{{ founding_members.description_en }}</p>
+			{% endif %}
+		</div>
+		<!-- End Section Title -->
+
+		<div class="container">
+			<div class="row gy-4">
+				{% for member in team_members %}
+				<div class="col-md-6 col-lg-4">
+					<div class="team-card">
+						<div class="team-image-container">
+							<img src="{{ member.image.url }}" alt="{{ member.name }}" class="team-image" />
+						</div>
+						<h3>{{ member.name }}</h3>
+						<div class="team-role">
+							{% if LANGUAGE_CODE == 'sq' %}
+							<span>{{ member.field_sq }}</span>
+							{% elif LANGUAGE_CODE == 'de' %}
+							<span>{{ member.field_de }}</span>
+							{% else %}
+							<span>{{ member.field_en }}</span>
+							{% endif %}
+						</div>
+						{% if LANGUAGE_CODE == 'sq' %}
+						<p>{{ member.description_sq }}</p>
+						{% elif LANGUAGE_CODE == 'de' %}
+						<p>{{ member.description_de }}</p>
+						{% else %}
+						<p>{{ member.description_en }}</p>
+						{% endif %}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- /Team Section -->
+
+	<!-- Events Section -->
+	<section id="events" class="excerpt section">
+		<!-- Section Title -->
+		<div class="container section-title">
+			{% if LANGUAGE_CODE == 'sq' %}
+			<h2>{{ titleEvent.title_sq }}</h2>
+			<p>{{ titleEvent.subtitle_sq }}</p>
+			{% elif LANGUAGE_CODE == 'de' %}
+			<h2>{{ titleEvent.title_de }}</h2>
+			<p>{{ titleEvent.subtitle_de }}</p>
+			{% else %}
+			<h2>{{ titleEvent.title_en }}</h2>
+			<p>{{ titleEvent.subtitle_en }}</p>
+			{% endif %}
+		</div>
+		<!-- End Section Title -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 offset">
+					<div class="book-excerpt-wrapper">
+						<div class="book-page-design">
+							<div class="excerpt-content">
+								{% if LANGUAGE_CODE == 'sq' %}
+								<h3 class="text-center mb-4">{{ titleEvent.subsubtitle_sq }}</h3>
+								{% elif LANGUAGE_CODE == 'de' %}
+								<h3 class="text-center mb-4">{{ titleEvent.subsubtitle_de }}</h3>
+								{% else %}
+								<h3 class="text-center mb-4">{{ titleEvent.subsubtitle_en }}</h3>
+								{% endif %}
+
+								{% if events %}
+								<div class="row">
+									{% for event in events %}
+									<div class="col-md-4 text-center event-card">
+										{% if LANGUAGE_CODE == 'sq' %}
+										<h4>{{ event.month_name_sq }} {{ event.day }}, {{ event.year }}</h4>
+										<p><strong>{{ event.title_sq }}</strong><br>{{ event.content_sq }}</p>
+										{% elif LANGUAGE_CODE == 'de' %}
+										<h4>{{ event.month_name_de }} {{ event.day }}, {{ event.year }}</h4>
+										<p><strong>{{ event.title_de }}</strong><br>{{ event.content_de }}</p>
+										{% else %}
+										<h4>{{ event.month_name_en }} {{ event.day }}, {{ event.year }}</h4>
+										<p><strong>{{ event.title_en }}</strong><br>{{ event.content_en }}</p>
+										{% endif %}
+									</div>
+
+									{% if forloop.counter|divisibleby:3 and not forloop.last %}
+								</div>
+								<div class="row">
+									{% endif %}
+									{% endfor %}
+								</div>
+								{% else %}
+								<p class="text-center">
+									{% if LANGUAGE_CODE == 'sq' %}
+									Nuk ka ngjarje të ardhshme.
+									{% elif LANGUAGE_CODE == 'de' %}
+									Keine bevorstehenden Veranstaltungen.
+									{% else %}
+									No upcoming events.
+									{% endif %}
+								</p>
+								{% endif %}
+							</div>
+
+							<div class="page-decoration"></div>
+						</div>
+
+						<div class="cta-wrapper text-center mt-4">
+							<a href="#contact" class="btn-read-more">
+								{% if LANGUAGE_CODE == 'sq' %}
+								Abonohu për përditësimet e ngjarjeve <i class="bi bi-arrow-right"></i>
+								{% elif LANGUAGE_CODE == 'de' %}
+								Abonnieren Sie Event-Updates <i class="bi bi-arrow-right"></i>
+								{% else %}
+								Subscribe to Event Updates <i class="bi bi-arrow-right"></i>
+								{% endif %}
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /Events Section -->
+
+	<!-- Tech Section -->
+	<section id="tech" class="purchase section light-background">
+		<!-- Section Title -->
+		<div class="container section-title">
+			{% if LANGUAGE_CODE == 'sq' %}
+			<h2>{{ tech_title_section.title_sq }}</h2>
+			<p>{{ tech_title_section.subtitle_sq }}</p>
+			{% elif LANGUAGE_CODE == 'de' %}
+			<h2>{{ tech_title_section.title_de }}</h2>
+			<p>{{ tech_title_section.subtitle_de }}</p>
+			{% else %}
+			<h2>{{ tech_title_section.title_en }}</h2>
+			<p>{{ tech_title_section.subtitle_en }}</p>
+			{% endif %}
+		</div>
+		<!-- End Section Title -->
+
+		<div class="container">
+			<div class="row g-4">
+				{% for mission in techMissionText %}
+				<div class="col-lg-4 col-md-6">
+					<div class="book-format-card">
+						<div class="format-icon">
+							<i class="{{ mission.typeLogo }}"></i>
+						</div>
+
+						{% if LANGUAGE_CODE == 'sq' %}
+						<h3>{{ mission.title_sq }}</h3>
+						<ul class="format-features">
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal1_sq }}</li>
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal2_sq }}</li>
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal3_sq }}</li>
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal4_sq }}</li>
+						</ul>
+						<div class="buy-options">
+							<a href="#contact" class="btn-purchase">{{ mission.buttonText_sq }}</a>
+						</div>
+						{% elif LANGUAGE_CODE == 'de' %}
+						<h3>{{ mission.title_de }}</h3>
+						<ul class="format-features">
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal1_de }}</li>
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal2_de }}</li>
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal3_de }}</li>
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal4_de }}</li>
+						</ul>
+						<div class="buy-options">
+							<a href="#contact" class="btn-purchase">{{ mission.buttonText_de }}</a>
+						</div>
+						{% else %}
+						<h3>{{ mission.title_en }}</h3>
+						<ul class="format-features">
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal1_en }}</li>
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal2_en }}</li>
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal3_en }}</li>
+							<li><i class="bi bi-check-circle"></i> {{ mission.goal4_en }}</li>
+						</ul>
+						<div class="buy-options">
+							<a href="#contact" class="btn-purchase">{{ mission.buttonText_en }}</a>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+
+			<!-- <div class="row mt-5">
+				<div class="col-lg-10 offset-lg-1">
+					<div class="bundle-offer">
+						<div class="row align-items-center">
+							<div class="col-md-7">
+								{% if LANGUAGE_CODE == 'sq' %}
+								<h3>{{ hackathon.title_sq }}</h3>
+								<p>{{ hackathon.description_sq }}</p>
+								<ul>
+									<li><i class="bi bi-check-lg"></i> {{ hackathon.point1_sq }}</li>
+									<li><i class="bi bi-check-lg"></i> {{ hackathon.point2_sq }}</li>
+									<li><i class="bi bi-check-lg"></i> {{ hackathon.point3_sq }}</li>
+								</ul>
+								<div class="bundle-price">
+									<span class="discounted">{{ hackathon.event_date_sq }}</span>
+								</div>
+								<a href="#contact" class="btn-bundle">{{ hackathon.register_button_sq }}</a>
+								{% elif LANGUAGE_CODE == 'de' %}
+								<h3>{{ hackathon.title_de }}</h3>
+								<p>{{ hackathon.description_de }}</p>
+								<ul>
+									<li><i class="bi bi-check-lg"></i> {{ hackathon.point1_de }}</li>
+									<li><i class="bi bi-check-lg"></i> {{ hackathon.point2_de }}</li>
+									<li><i class="bi bi-check-lg"></i> {{ hackathon.point3_de }}</li>
+								</ul>
+								<div class="bundle-price">
+									<span class="discounted">{{ hackathon.event_date_de }}</span>
+								</div>
+								<a href="#contact" class="btn-bundle">{{ hackathon.register_button_de }}</a>
+								{% else %}
+								<h3>{{ hackathon.title_en }}</h3>
+								<p>{{ hackathon.description_en }}</p>
+								<ul>
+									<li><i class="bi bi-check-lg"></i> {{ hackathon.point1_en }}</li>
+									<li><i class="bi bi-check-lg"></i> {{ hackathon.point2_en }}</li>
+									<li><i class="bi bi-check-lg"></i> {{ hackathon.point3_en }}</li>
+								</ul>
+								<div class="bundle-price">
+									<span class="discounted">{{ hackathon.event_date_en }}</span>
+								</div>
+								<a href="#contact" class="btn-bundle">{{ hackathon.register_button_en }}</a>
+								{% endif %}
+							</div>
+							<div class="col-md-5">
+								<div class="bundle-image">
+									<img src="{{ hackathon.image.url|default:'/api/placeholder/400/300' }}"
+										alt="Hackathon" class="img-fluid" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		
+		
+		</div>
+	</section>
+	<!-- /Tech Section -->
+
+	<!-- Contact Section -->
+	<section id="contact" class="contact section">
+		<div class="container section-title">
+			{% if LANGUAGE_CODE == 'sq' %}
+			<h2>{{ contact.title_sq }}</h2>
+			<p>{{ contact.subtitle_sq }}</p>
+			{% elif LANGUAGE_CODE == 'de' %}
+			<h2>{{ contact.title_de }}</h2>
+			<p>{{ contact.subtitle_de }}</p>
+			{% else %}
+			<h2>{{ contact.title_en }}</h2>
+			<p>{{ contact.subtitle_en }}</p>
+			{% endif %}
+		</div>
+
+		<div class="container">
+			<div class="row gy-5 gx-lg-5">
+				<div class="col-lg-4">
+					<div class="contact-info">
+						<div class="contact-card">
+							{% if LANGUAGE_CODE == 'sq' %}
+							<h3>{{ contact.connect_sq }}</h3>
+							<p>{{ contact.description_sq }}</p>
+							{% elif LANGUAGE_CODE == 'de' %}
+							<h3>{{ contact.connect_de }}</h3>
+							<p>{{ contact.description_de }}</p>
+							{% else %}
+							<h3>{{ contact.connect_en }}</h3>
+							<p>{{ contact.description_en }}</p>
+							{% endif %}
+
+							<div class="contact-details">
+								<div class="contact-item">
+									<i class="bi bi-envelope"></i>
+									<div>
+										{% if LANGUAGE_CODE == 'sq' %}
+										<h4>{{ contact.email_label_sq }}</h4>
+										{% elif LANGUAGE_CODE == 'de' %}
+										<h4>{{ contact.email_label_de }}</h4>
+										{% else %}
+										<h4>{{ contact.email_label_en }}</h4>
+										{% endif %}
+										<p>info@tumalbaniansociety.de</p>
+									</div>
+								</div>
+
+								<div class="contact-item">
+									<i class="bi bi-geo-alt"></i>
+									<div>
+										{% if LANGUAGE_CODE == 'sq' %}
+										<h4>{{ contact.address_label_sq }}</h4>
+										{% elif LANGUAGE_CODE == 'de' %}
+										<h4>{{ contact.address_label_de }}</h4>
+										{% else %}
+										<h4>{{ contact.address_label_en }}</h4>
+										{% endif %}
+										<p>Arcisstraße 21, 80333 München</p>
+										<p>Germany</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="social-links">
+								<a href="https://www.instagram.com/albanian_students_tum?igsh=MTNkb3NiZ2VhY2IybQ=="><i
+										class="bi bi-instagram"></i></a>
+								<a href="#"><i class="bi bi-facebook"></i></a>
+								<a href="#"><i class="bi bi-linkedin"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-8">
+					<div class="contact-form-wrapper">
+						<form action="{% url 'contact' %}" method="post" role="form" class="php-email-form">
+							{% csrf_token %}
+							<div class="row">
+								<div class="col-md-6 form-group">
+									{% if LANGUAGE_CODE == 'sq' %}
+									<label for="name">{{ contact.form_name_sq }}</label>
+									{% elif LANGUAGE_CODE == 'de' %}
+									<label for="name">{{ contact.form_name_de }}</label>
+									{% else %}
+									<label for="name">{{ contact.form_name_en }}</label>
+									{% endif %}
+									<input type="text" name="name" class="form-control" id="name" required>
+								</div>
+								<div class="col-md-6 form-group mt-3 mt-md-0">
+									{% if LANGUAGE_CODE == 'sq' %}
+									<label for="email">{{ contact.form_email_sq }}</label>
+									{% elif LANGUAGE_CODE == 'de' %}
+									<label for="email">{{ contact.form_email_de }}</label>
+									{% else %}
+									<label for="email">{{ contact.form_email_en }}</label>
+									{% endif %}
+									<input type="email" class="form-control" name="email" id="email" required>
+								</div>
+							</div>
+							<div class="form-group mt-3">
+								{% if LANGUAGE_CODE == 'sq' %}
+								<label for="subject">{{ contact.form_subject_sq }}</label>
+								{% elif LANGUAGE_CODE == 'de' %}
+								<label for="subject">{{ contact.form_subject_de }}</label>
+								{% else %}
+								<label for="subject">{{ contact.form_subject_en }}</label>
+								{% endif %}
+								<input type="text" class="form-control" name="subject" id="subject" required>
+							</div>
+							<div class="form-group mt-3">
+								{% if LANGUAGE_CODE == 'sq' %}
+								<label for="message">{{ contact.form_message_sq }}</label>
+								{% elif LANGUAGE_CODE == 'de' %}
+								<label for="message">{{ contact.form_message_de }}</label>
+								{% else %}
+								<label for="message">{{ contact.form_message_en }}</label>
+								{% endif %}
+								<textarea class="form-control" name="message" id="message" rows="5" required></textarea>
+							</div>
+
+							<div class="text-center">
+								{% if LANGUAGE_CODE == 'sq' %}
+								<button type="submit">{{ contact.submit_button_sq }}</button>
+								{% elif LANGUAGE_CODE == 'de' %}
+								<button type="submit">{{ contact.submit_button_de }}</button>
+								{% else %}
+								<button type="submit">{{ contact.submit_button_en }}</button>
+								{% endif %}
+							</div>
+
+							{% if messages %}
+							<div class="mt-3">
+								{% for message in messages %}
+								<div class="alert alert-{{ message.tags }}">
+									{% if LANGUAGE_CODE == 'sq' %}
+									{{ contact.success_message_sq }}
+									{% elif LANGUAGE_CODE == 'de' %}
+									{{ contact.success_message_de }}
+									{% else %}
+									{{ contact.success_message_en }}
+									{% endif %}
+								</div>
+								{% endfor %}
+							</div>
+							{% endif %}
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Contact Section -->
+</main>
+
+{% endblock %}

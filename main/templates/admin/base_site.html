@@ -1,0 +1,223 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+<style type="text/css">
+    /* Global color variables matching the main site */
+    :root {
+        --accent-color: #e50914;
+        --heading-color: #2c1c11;
+        --default-color: #2c1c11;
+        --contrast-color: #ffffff;
+        --surface-color: #ffffff;
+        --background-color: #fbf7f3;
+    }
+
+    /* Header styling */
+    #header {
+        background: var(--background-color);
+        color: var(--heading-color);
+        border-bottom: 3px solid var(--accent-color);
+        font-family: "Roboto Slab", sans-serif;
+    }
+
+    /* User tools styling */
+    #user-tools {
+        float: right;
+        padding: 0;
+        margin: 0 0 0 20px;
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        text-align: right;
+        font-family: "Poppins", sans-serif;
+    }
+    
+    #user-tools a {
+        background: var(--surface-color);
+        color: var(--accent-color) !important;
+        transition: 0.3s;
+    }
+    
+    #user-tools a:hover {
+        color: color-mix(in srgb, var(--accent-color), transparent 25%) !important;
+        text-decoration: none;
+    }
+
+    /* Button styling */
+    .button, 
+    input[type=submit], 
+    input[type=button], 
+    .submit-row input, 
+    a.button {
+        background: var(--accent-color);
+        color: var(--contrast-color);
+        border-radius: 50px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-align: center;
+        border: none;
+    }
+    
+    /* Button hover states */
+    .button:active, 
+    input[type=submit]:active, 
+    input[type=button]:active,
+    .button:focus, 
+    input[type=submit]:focus, 
+    input[type=button]:focus,
+    .button:hover, 
+    input[type=submit]:hover, 
+    input[type=button]:hover {
+        background: color-mix(in srgb, var(--accent-color), transparent 20%);
+        color: var(--contrast-color);
+        transform: translateY(-2px);
+    }
+
+    /* Module headers */
+    .module h2, 
+    .module caption, 
+    .inline-group h2 {
+        background: var(--accent-color);
+        color: var(--contrast-color);
+        border-radius: 5px 5px 0 0;
+        font-family: "Roboto Slab", sans-serif;
+    }
+
+    /* Default button styling */
+    input.default {
+        background: var(--accent-color) !important;
+        color: var(--contrast-color);
+        font-weight: 600;
+    }
+    
+    input.default:hover {
+        background: color-mix(in srgb, var(--accent-color), transparent 20%) !important;
+        color: var(--contrast-color);
+    }
+
+    /* Link styling */
+    a:link, 
+    a:visited {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    
+    a:hover {
+        color: color-mix(in srgb, var(--accent-color), transparent 25%);
+        text-decoration: none;
+    }
+
+    /* Breadcrumbs styling */
+    div.breadcrumbs {
+        background: var(--background-color);
+        padding: 12px 40px;
+        border: none;
+        font-size: 14px;
+        color: var(--default-color);
+        text-align: left;
+        border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+        font-family: "Merriweather", system-ui;
+    }
+    
+    div.breadcrumbs a {
+        color: var(--accent-color);
+    }
+    
+    div.breadcrumbs a:hover {
+        color: color-mix(in srgb, var(--accent-color), transparent 25%);
+    }
+
+    /* Object tools styling */
+    .object-tools a:link, 
+    .object-tools a:visited {
+        text-decoration: none;
+        background: var(--accent-color);
+        border-radius: 50px;
+    }
+    
+    .object-tools a:focus, 
+    .object-tools a:hover {
+        background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+        transform: translateY(-2px);
+    }
+    
+    /* Form styling */
+    .form-row {
+        border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    }
+    
+    fieldset {
+        background: var(--background-color);
+        border-radius: 8px;
+    }
+    
+    /* Message styling */
+    .messagelist li {
+        border-radius: 5px;
+    }
+    
+    .messagelist li.success {
+        background: #90EE90;
+    }
+    
+    /* Dashboard styling */
+    .dashboard .module table th {
+        background: color-mix(in srgb, var(--accent-color), transparent 80%);
+    }
+    
+    /* Login styling */
+    .login {
+        background: var(--background-color);
+    }
+    
+    .login #header {
+        background: var(--background-color);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .login .form-row {
+        padding: 5px 0;
+    }
+    
+    /* Main body styling */
+    body {
+        background: var(--background-color);
+        color: var(--default-color);
+        font-family: "Merriweather", system-ui, -apple-system, "Segoe UI", Roboto;
+    }
+    
+    #container {
+        background: var(--background-color);
+    }
+    
+    #content {
+        background: var(--surface-color);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+    }
+    
+    h1 {
+        color: var(--heading-color);
+        font-family: "Roboto Slab", sans-serif;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <div class="logo" style="padding: 10px 0;">
+        <a href="{% url 'admin:index' %}" style="display: flex; align-items: center;">
+            <img src="{% static 'assets/img/albstudentslogo.png' %}" alt="TUM Albanian Society Logo" style="max-height: 75px; margin-right: 10px;">
+        </a>
+    </div>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

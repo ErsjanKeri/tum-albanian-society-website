@@ -1,0 +1,52 @@
+// main: main.scss
+/*--------------------------------------------------------------
+# Font & Color Variables
+# TUM Albanian Society - SCSS Variables
+--------------------------------------------------------------*/
+
+/* Fonts */
+:root {
+  --default-font: "Merriweather",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Roboto Slab",  sans-serif;
+  --nav-font: "Poppins",  sans-serif;
+}
+
+/* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
+:root { 
+  --background-color: #fbf7f3; /* Background color for the entire website, including individual sections */
+  --default-color: #2c1c11; /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #5c4b36; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #f17c13; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+
+/* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
+:root {
+  --nav-color: #2c1c11;  /* The default color of the main navmenu links */
+  --nav-hover-color: #f17c13; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
+  --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+  --nav-dropdown-color: #2c1c11; /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-hover-color: #f17c13; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+}
+
+/* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
+
+.light-background {
+  --background-color: #f8f0e9;
+  --surface-color: #ffffff;
+}
+
+.dark-background {
+  --background-color: #22140a;
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --surface-color: #492b16;
+  --contrast-color: #ffffff;
+}
+
+/* Smooth scroll */
+:root {
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,173 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+.hero {
+  padding: 120px 0 80px;
+  position: relative;
+  overflow: hidden;
+
+  .book-hero-content {
+    .book-genre {
+      display: inline-block;
+      background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+      color: var(--accent-color);
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--heading-color);
+      line-height: 1.2;
+
+      @media (max-width: 992px) {
+        font-size: 36px;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 32px;
+      }
+    }
+
+    .book-subtitle {
+      font-size: 20px;
+      color: color-mix(in srgb, var(--heading-color), transparent 20%);
+      margin-bottom: 24px;
+      font-weight: 500;
+
+      @media (max-width: 768px) {
+        font-size: 18px;
+      }
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+
+      span {
+        font-size: 16px;
+        color: var(--default-color);
+      }
+
+      h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        color: var(--heading-color);
+      }
+    }
+
+    .book-description {
+      margin-bottom: 32px;
+      color: var(--default-color);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      .btn-primary {
+        background-color: var(--accent-color);
+        color: var(--contrast-color);
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: grid;
+        place-items: center;
+
+        &:hover {
+          background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+          transform: translateY(-3px);
+        }
+      }
+
+      .btn-outline {
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: grid;
+        place-items: center;
+
+        &:hover {
+          background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+          transform: translateY(-3px);
+        }
+      }
+    }
+  }
+
+  .book-cover {
+    position: relative;
+    transform: rotate(-3deg);
+    transition: all 0.5s ease;
+    max-width: 400px;
+
+    .book-shadow {
+      position: absolute;
+      bottom: -20px;
+      left: 10%;
+      width: 80%;
+      height: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      filter: blur(15px);
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    &:hover {
+      transform: rotate(0) translateY(-10px);
+
+      img {
+        filter: brightness(1.05);
+        transition: 0.3s;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    padding: 100px 0 60px;
+
+    .book-cover {
+      margin-top: 40px;
+      transform: rotate(0);
+
+      &:hover {
+        transform: translateY(-10px);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    text-align: center;
+    padding: 80px 0 40px;
+
+    .book-hero-content {
+      .author {
+        justify-content: center;
+      }
+
+      .hero-cta {
+        justify-content: center;
+      }
+    }
+
+    .book-cover {
+      margin: 40px auto 0;
+    }
+  }
+}

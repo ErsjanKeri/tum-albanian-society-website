@@ -1,0 +1,216 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# About Author Section
+--------------------------------------------------------------*/
+.about-author {
+  padding: 80px 0;
+  overflow: hidden;
+
+  .author-image {
+    position: relative;
+    margin-bottom: 30px;
+
+    img {
+      border-radius: 10px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+
+    .author-signature {
+      position: absolute;
+      bottom: -25px;
+      right: 20px;
+      background-color: var(--surface-color);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      width: 40%;
+      transform: rotate(-5deg);
+      transition: transform 0.3s ease;
+
+      img {
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+      }
+
+      &:hover {
+        transform: rotate(0deg);
+      }
+    }
+
+    @media (max-width: 992px) {
+      max-width: 450px;
+      margin: 0 auto 30px;
+    }
+  }
+
+  .author-info {
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-color);
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--heading-color);
+      margin-bottom: 10px;
+
+      @media (max-width: 768px) {
+        font-size: 30px;
+      }
+    }
+
+    .author-credentials {
+      font-size: 18px;
+      color: color-mix(in srgb, var(--default-color), transparent 20%);
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+
+    .author-bio {
+      margin-bottom: 30px;
+
+      p {
+        color: var(--default-color);
+        margin-bottom: 15px;
+        line-height: 1.6;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .author-awards {
+      margin-bottom: 30px;
+
+      h4 {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--heading-color);
+        margin-bottom: 15px;
+        position: relative;
+        padding-bottom: 10px;
+
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 40px;
+          height: 2px;
+          background-color: var(--accent-color);
+        }
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          display: flex;
+          align-items: center;
+          margin-bottom: 12px;
+
+          i {
+            color: var(--accent-color);
+            font-size: 18px;
+            margin-right: 10px;
+            flex-shrink: 0;
+          }
+
+          span {
+            color: var(--default-color);
+            line-height: 1.4;
+          }
+        }
+      }
+    }
+
+    .author-social {
+      h4 {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--heading-color);
+        margin-bottom: 15px;
+        position: relative;
+        padding-bottom: 10px;
+
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 40px;
+          height: 2px;
+          background-color: var(--accent-color);
+        }
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+          color: var(--accent-color);
+          font-size: 18px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background-color: var(--accent-color);
+            color: var(--contrast-color);
+            transform: translateY(-5px);
+          }
+        }
+      }
+    }
+
+    @media (max-width: 992px) {
+      text-align: center;
+
+      h2,
+      h3,
+      .author-credentials {
+        text-align: center;
+      }
+
+      .author-awards,
+      .author-social {
+        h4 {
+          &:after {
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+      }
+
+      .author-awards {
+        ul {
+          li {
+            justify-content: center;
+          }
+        }
+      }
+
+      .author-social {
+        .social-links {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

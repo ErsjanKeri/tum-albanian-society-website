@@ -1,0 +1,136 @@
+<!-- Contact Section -->
+<section id="contact" class="contact section">
+    <!-- Section Title -->
+	<div class="container section-title">
+		<h2>{{contact_title}}</h2>
+		<p>{{contact_subtitle}}</p>
+    </div>
+    <!-- End Section Title -->
+
+    <div class="container">
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="contact-info">
+					<div class="contact-card">
+						<h3>{{connect_title}}</h3>
+						<p> {{contact_description}} </p>
+
+						<div class="contact-details">
+							<div class="contact-item">
+							<i class="bi bi-envelope"></i>
+							<div>
+								<h4>{{email_label}}</h4>
+								<p>albanian.society@tum.de</p>
+							</div>
+							</div>
+
+							<div class="contact-item">
+							<i class="bi bi-geo-alt"></i>
+							<div>
+								<h4>TUM Main Campus:</h4>
+								<p>Arcisstraße 21, 80333 München</p>
+							</div>
+							</div>
+						</div>
+
+						<div class="social-links">
+							<a href="https://www.instagram.com/albanian_students_tum?igsh=MTNkb3NiZ2VhY2IybQ=="><i class="bi bi-instagram"></i></a>
+							<a href="#"><i class="bi bi-facebook"></i></a>
+							<a href="#"><i class="bi bi-linkedin"></i></a>
+							<a href="#"><i class="bi bi-discord"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-7">
+				<div class="contact-form-wrapper">
+					<form action="{% url 'contact' %}" method="post" class="php-email-form">
+						{% csrf_token %}
+						<input type="hidden" name="device_name" id="device_name">
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label for="name">{{form_name}}</label>
+								<input
+									type="text"
+									name="name"
+									class="form-control"
+									id="name"
+									placeholder="Full Name"
+									required=""
+								/>
+							</div>
+
+							<div class="col-md-6 form-group mt-3 mt-md-0">
+								<label for="email">{{form_email}}</label>
+								<input
+									type="email"
+									class="form-control"
+									name="email"
+									id="email"
+									placeholder="Email Address"
+									required=""
+								/>
+							</div>
+						</div>
+
+						<div class="form-group mt-3">
+							<label for="subject">{{form_subject}}</label>
+							<input
+								type="text"
+								class="form-control"
+								name="subject"
+								id="subject"
+								placeholder="Subject"
+								required=""
+							/>
+						</div>
+
+						<div class="form-group mt-3">
+							<label for="message">{{form_message}}</label>
+							<textarea
+								class="form-control"
+								name="message"
+								rows="7"
+								placeholder="Your message or inquiry"
+								required=""
+							></textarea>
+						</div>
+
+						<div class="my-3">
+							<div class="loading">Loading</div>
+							<div class="error-message"></div>
+							<div class="sent-message">
+								{{success_message}}
+							</div>
+						</div>
+
+						<div class="text-center">
+							<button type="submit">{{submit_button}}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("https://api64.ipify.org?format=json")
+            .then(response => response.json())
+            .then(data => {
+                let userIP = data.ip;
+
+                // Fetch device name using WebRTC
+                let deviceName = "Unknown Device";
+                if (navigator.platform) {
+                    deviceName = navigator.platform;
+                }
+
+                document.getElementById("device_name").value = deviceName + " (IP: " + userIP + ")";
+            })
+            .catch(error => console.error("Error fetching IP:", error));
+    });
+</script>
