@@ -147,7 +147,7 @@ class TeamMember(models.Model):
     description_en = models.TextField(verbose_name="Description English")
     description_de = models.TextField(verbose_name="Beschreibung Deutsch")
 
-    profile_image_url = models.URLField(verbose_name="Link i Fotos së Profilit", help_text="Vendosni linkun e fotos së profilit (p.sh. nga LinkedIn, GitHub, apo ndonjë burim tjetër)")
+    profile_image_url = models.URLField(verbose_name="Profile picture URL", help_text="Provide any image url for the profile picture")
     
     class Meta:
         verbose_name_plural = "Team Members"
