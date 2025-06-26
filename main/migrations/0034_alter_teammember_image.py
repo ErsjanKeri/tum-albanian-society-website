@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='teammember',
             name='profile_image_url',
-            field=models.URLField(help_text='Vendosni linkun e fotos së profilit (p.sh. nga LinkedIn, GitHub, apo ndonjë burim tjetër)', verbose_name='Link i Fotos së Profilit', default='https://via.placeholder.com/150'),
+            field=models.URLField(help_text='Enter the profile image URL (e.g. from LinkedIn, GitHub, or other source)', verbose_name='Profile Image URL', default=''),
         ),
     ] 
