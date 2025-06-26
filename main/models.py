@@ -183,7 +183,7 @@ class EventTitleText(models.Model):
 
     subsubtitle_sq = models.CharField(max_length=200, verbose_name='Nen nen Titulli Shqip')
     subsubtitle_en = models.CharField(max_length=200, verbose_name='Nen nen Titulli Anglisht')
-    subsubtitle_de = models.CharField(max_length=200, verbose_name='Nen nen Titulli Gjermanisht')
+    subsubtitle_de = models.CharField(max_length=200, verbose_name='Untertitel Deutsch')
 
     class Meta: 
         verbose_name_plural = 'Event Title Text te Index Page'
