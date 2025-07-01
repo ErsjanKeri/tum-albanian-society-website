@@ -31,8 +31,11 @@ class FoundingMembersTextAdmin(admin.ModelAdmin):
     
 @admin.register(TeamMember)
 class TeamMemberAdmin(admin.ModelAdmin):
-    list_display = ('index', 'name', 'field_en')
+    list_display = ('index', 'name', 'field_en', 'profile_image_url')
     ordering = ('index',)
+    fields = ('index', 'name', ('field_sq', 'field_en', 'field_de'), 
+              ('description_sq', 'description_en', 'description_de'), 'profile_image_url')
+    search_fields = ('name', 'field_en', 'field_sq', 'field_de')
 
 
 

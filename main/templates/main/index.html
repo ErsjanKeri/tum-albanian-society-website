@@ -236,7 +236,19 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="team-card">
 						<div class="team-image-container">
-							<img src="{{ member.image.url }}" alt="{{ member.name }}" class="team-image" />
+							{% if member.profile_image_url %}
+							<img src="{{ member.profile_image_url }}" alt="{{ member.name }}" class="team-image"
+								onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+							<div class="team-image-fallback"
+								style="display: none; width: 140px; height: 140px; border-radius: 50%; background-color: #ffffff; border: 2px solid #e0e0e0; align-items: center; justify-content: center;">
+								<span style="color: #666; font-size: 12px; text-align: center;">No Image</span>
+							</div>
+							{% else %}
+							<div class="team-image-fallback"
+								style="display: flex; width: 140px; height: 140px; border-radius: 50%; background-color: #ffffff; border: 2px solid #e0e0e0; align-items: center; justify-content: center;">
+								<span style="color: #666; font-size: 12px; text-align: center;">No Image</span>
+							</div>
+							{% endif %}
 						</div>
 						<h3>{{ member.name }}</h3>
 						<div class="team-role">
@@ -468,8 +480,8 @@
 					</div>
 				</div>
 			</div> -->
-		
-		
+
+
 		</div>
 	</section>
 	<!-- /Tech Section -->
@@ -516,7 +528,7 @@
 										{% else %}
 										<h4>{{ contact.email_label_en }}</h4>
 										{% endif %}
-										<p>info@tumalbaniansociety.de</p>
+										<p>tumalbaniansociety@gmail.com</p>
 									</div>
 								</div>
 
@@ -539,8 +551,8 @@
 							<div class="social-links">
 								<a href="https://www.instagram.com/albanian_students_tum?igsh=MTNkb3NiZ2VhY2IybQ=="><i
 										class="bi bi-instagram"></i></a>
-								<a href="#"><i class="bi bi-facebook"></i></a>
-								<a href="#"><i class="bi bi-linkedin"></i></a>
+								<a href="https://www.linkedin.com/company/tum-albanian-student-society/"><i
+										class="bi bi-linkedin"></i></a>
 							</div>
 						</div>
 					</div>

@@ -147,7 +147,7 @@ class TeamMember(models.Model):
     description_en = models.TextField(verbose_name="Description English")
     description_de = models.TextField(verbose_name="Beschreibung Deutsch")
 
-    image = models.ImageField(upload_to="team/", verbose_name="Foto")
+    profile_image_url = models.URLField(verbose_name="Profile Image URL", help_text="Enter the profile image URL (e.g. from LinkedIn, GitHub, or other source)", blank=True)
     
     class Meta:
         verbose_name_plural = "Team Members"
