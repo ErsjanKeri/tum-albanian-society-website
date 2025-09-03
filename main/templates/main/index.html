@@ -1,8 +1,31 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% load i18n %}
+{% load seo_tags %}
+{% load image_tags %}
+{% load instagram_tags %}
+
 {% block content %}
 {% get_current_language as LANGUAGE_CODE %}
+
+<!-- Page-specific SEO meta tags for homepage -->
+{% if LANGUAGE_CODE == 'sq' %}
+  {% seo_meta title=hero.title_sq description=hero.subtitle_sq og_type="website" %}
+{% elif LANGUAGE_CODE == 'de' %}
+  {% seo_meta title=hero.title_de description=hero.subtitle_de og_type="website" %}
+{% else %}
+  {% seo_meta title=hero.title_en description=hero.subtitle_en og_type="website" %}
+{% endif %}
+
+<!-- Homepage Structured Data -->
+{% webpage_schema "WebPage" %}
+
+<!-- Homepage Breadcrumb Schema -->
+{% with breadcrumb_items=breadcrumb_home %}
+  {% if breadcrumb_items %}
+    {% breadcrumb_schema breadcrumb_items %}
+  {% endif %}
+{% endwith %}
 
 <main class="main">
 	<!-- Hero Section -->
@@ -61,7 +84,7 @@
 			<div class="row align-items-center gy-5 gx-lg-5">
 				<div class="col-lg-6">
 					<div class="about-book-img" data-aos="fade-right" data-aos-delay="100">
-						<img src="{% static './assets/img/team.jpeg' %}" alt="TUM Albanian Society" class="img-fluid" />
+						{% safe_image "/static/assets/img/team.jpeg" alt_text="TUM Albanian Society team members at university event" css_class="img-fluid" fallback_image="assets/img/placeholder.svg" %}
 					</div>
 				</div>
 
@@ -215,6 +238,11 @@
 
 	<!-- Team Section -->
 	<section id="team" class="related-books section light-background">
+		<!-- Team Structured Data -->
+		{% if team_members %}
+			{% team_schema team_members %}
+		{% endif %}
+		
 		<!-- Section Title -->
 		<div class="container section-title">
 			{% if LANGUAGE_CODE == 'sq' %}
@@ -236,7 +264,7 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="team-card">
 						<div class="team-image-container">
-							<img src="{{ member.image.url }}" alt="{{ member.name }}" class="team-image" />
+							{% safe_image member.profile_image_url alt_text="Photo of "|add:member.name|add:", "|add:member.field_en css_class="team-image" fallback_image="assets/img/team-placeholder.svg" %}
 						</div>
 						<h3>{{ member.name }}</h3>
 						<div class="team-role">
@@ -263,8 +291,84 @@
 	</section>
 	<!-- /Team Section -->
 
+	<!-- Instagram Section -->
+	{% if instagram_config and instagram_config.is_active %}
+		{% if instagram_posts %}
+		<section id="instagram" class="instagram section">
+			<!-- Section Title -->
+			<div class="container section-title" data-aos="fade-up">
+				<div class="instagram-header">
+					<div class="instagram-icon">
+						<i class="fab fa-instagram"></i>
+					</div>
+					{% if LANGUAGE_CODE == 'sq' %}
+					<h2>{{ instagram_config.section_title_sq }}</h2>
+					<p>Ndiqni aktivitetet tona të fundit në Instagram</p>
+					{% elif LANGUAGE_CODE == 'de' %}
+					<h2>{{ instagram_config.section_title_de }}</h2>
+					<p>Folgen Sie unseren neuesten Aktivitäten auf Instagram</p>
+					{% else %}
+					<h2>{{ instagram_config.section_title_en }}</h2>
+					<p>Follow our latest activities on Instagram</p>
+					{% endif %}
+				</div>
+			</div>
+			<!-- End Section Title -->
+
+			<div class="container" data-aos="fade-up" data-aos-delay="100">
+				<div class="instagram-grid">
+					{% for post in instagram_posts %}
+						<div class="instagram-post-wrapper" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:100 }}">
+							{% render_instagram_post post show_caption=instagram_config.show_captions css_class="instagram-post-card" %}
+						</div>
+					{% endfor %}
+				</div>
+
+				<!-- Instagram CTA -->
+				<div class="instagram-cta" data-aos="fade-up" data-aos-delay="300">
+					<div class="instagram-follow-card">
+						<div class="instagram-follow-content">
+							<div class="instagram-logo">
+								<i class="fab fa-instagram"></i>
+							</div>
+							{% if LANGUAGE_CODE == 'sq' %}
+							<h3>Ndiqni në Instagram</h3>
+							<p>Mos humbisni asnjë moment nga aktivitetet tona! Ndiqni @albanian_students_tum për përditësime të rregullta.</p>
+							<a href="https://www.instagram.com/albanian_students_tum" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+								<i class="fab fa-instagram"></i>
+								Ndiq Tani
+							</a>
+							{% elif LANGUAGE_CODE == 'de' %}
+							<h3>Folgen Sie uns auf Instagram</h3>
+							<p>Verpassen Sie keinen Moment unserer Aktivitäten! Folgen Sie @albanian_students_tum für regelmäßige Updates.</p>
+							<a href="https://www.instagram.com/albanian_students_tum" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+								<i class="fab fa-instagram"></i>
+								Jetzt Folgen
+							</a>
+							{% else %}
+							<h3>Follow us on Instagram</h3>
+							<p>Don't miss any moment from our activities! Follow @albanian_students_tum for regular updates.</p>
+							<a href="https://www.instagram.com/albanian_students_tum" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+								<i class="fab fa-instagram"></i>
+								Follow Now
+							</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		{% endif %}
+	{% endif %}
+	<!-- /Instagram Section -->
+
 	<!-- Events Section -->
 	<section id="events" class="excerpt section">
+		<!-- Events Structured Data -->
+		{% if events %}
+			{% events_list_schema events %}
+		{% endif %}
+		
 		<!-- Section Title -->
 		<div class="container section-title">
 			{% if LANGUAGE_CODE == 'sq' %}
@@ -460,8 +564,7 @@
 							</div>
 							<div class="col-md-5">
 								<div class="bundle-image">
-									<img src="{{ hackathon.image.url|default:'/api/placeholder/400/300' }}"
-										alt="Hackathon" class="img-fluid" />
+									{% safe_image_with_placeholder hackathon.image alt_text=hackathon.title_en|add:" event image" css_class="img-fluid" width="400" height="300" %}
 								</div>
 							</div>
 						</div>

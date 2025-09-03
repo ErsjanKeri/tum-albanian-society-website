@@ -1,0 +1,6 @@
+{% load static %}
+<img src="{{ image_url|default:fallback_url }}" 
+     alt="{{ alt_text }}" 
+     class="{{ css_class }}" 
+     loading="{{ loading }}"
+     onerror="this.src='{{ fallback_url }}'; this.onerror=null;" />

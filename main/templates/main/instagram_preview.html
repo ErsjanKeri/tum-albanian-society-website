@@ -1,0 +1,149 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load instagram_tags %}
+
+{% block title %}Instagram Preview - TUM Albanian Society{% endblock %}
+
+{% block content %}
+<main class="main">
+    <!-- Instagram Preview Section -->
+    <section class="instagram-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Instagram Posts Preview</h2>
+                <p>Testing Instagram embed functionality</p>
+            </div>
+            
+            {% if config and config.is_active %}
+                <div class="instagram-grid">
+                    {% for post in posts %}
+                        {% render_instagram_post post %}
+                    {% empty %}
+                        <div class="col-12">
+                            <div class="alert alert-info text-center">
+                                <h4>No Instagram Posts</h4>
+                                <p>No active Instagram posts found. Add some posts in the admin panel to see them here.</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Test Embed Section -->
+                <div class="test-embed-section mt-5">
+                    <h3>Test Instagram Embed</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form id="test-embed-form">
+                                <div class="form-group mb-3">
+                                    <label for="test-url">Instagram Post URL:</label>
+                                    <input type="url" 
+                                           id="test-url" 
+                                           class="form-control" 
+                                           placeholder="https://www.instagram.com/p/ABC123/"
+                                           required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Test Embed</button>
+                                <button type="button" id="validate-url" class="btn btn-secondary">Validate URL</button>
+                            </form>
+                            
+                            <div id="validation-result" class="mt-3"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="embed-result" class="mt-3">
+                                <p class="text-muted">Enter an Instagram URL and click "Test Embed" to see the result.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-warning text-center">
+                    <h4>Instagram Section Disabled</h4>
+                    <p>The Instagram section is currently disabled. Enable it in the admin panel to see posts.</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const testForm = document.getElementById('test-embed-form');
+    const validateBtn = document.getElementById('validate-url');
+    const urlInput = document.getElementById('test-url');
+    const validationResult = document.getElementById('validation-result');
+    const embedResult = document.getElementById('embed-result');
+    
+    // Validate URL
+    validateBtn.addEventListener('click', function() {
+        const url = urlInput.value.trim();
+        if (!url) {
+            showValidationResult(false, 'Please enter a URL');
+            return;
+        }
+        
+        fetch('{% url "validate_instagram_url" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url: url })
+        })
+        .then(response => response.json())
+        .then(data => {
+            showValidationResult(data.valid, data.error);
+        })
+        .catch(error => {
+            showValidationResult(false, 'Validation request failed: ' + error.message);
+        });
+    });
+    
+    // Test embed
+    testForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const url = urlInput.value.trim();
+        if (!url) {
+            showEmbedResult('Please enter a URL');
+            return;
+        }
+        
+        showEmbedResult('<div class="instagram-loading"></div>');
+        
+        fetch(`{% url "test_instagram_embed" %}?url=${encodeURIComponent(url)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.html) {
+                showEmbedResult(data.html);
+            } else {
+                showEmbedResult(`
+                    <div class="alert alert-danger">
+                        <strong>Embed Failed:</strong> ${data.error || 'Unknown error'}
+                    </div>
+                `);
+            }
+        })
+        .catch(error => {
+            showEmbedResult(`
+                <div class="alert alert-danger">
+                    <strong>Request Failed:</strong> ${error.message}
+                </div>
+            `);
+        });
+    });
+    
+    function showValidationResult(isValid, message) {
+        const alertClass = isValid ? 'alert-success' : 'alert-danger';
+        const icon = isValid ? '✓' : '✗';
+        validationResult.innerHTML = `
+            <div class="alert ${alertClass}">
+                <strong>${icon} ${isValid ? 'Valid' : 'Invalid'}</strong>
+                ${message ? ': ' + message : ''}
+            </div>
+        `;
+    }
+    
+    function showEmbedResult(html) {
+        embedResult.innerHTML = html;
+    }
+});
+</script>
+{% endblock %}

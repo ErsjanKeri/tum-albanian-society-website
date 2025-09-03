@@ -1,7 +1,61 @@
 from django.db import models
 from django.utils import timezone 
+from django.core.exceptions import ValidationError
+from urllib.parse import urlparse
 
-from django.db import models
+
+class ImageURLField(models.URLField):
+    """Custom URLField for image URLs with basic validation"""
+    
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('max_length', 2000)  # Increased for Instagram CDN URLs
+        super().__init__(*args, **kwargs)
+    
+    def validate(self, value, model_instance):
+        super().validate(value, model_instance)
+        if value and not self.is_valid_image_url(value):
+            raise ValidationError('Please provide a valid image URL. Supported formats: jpg, jpeg, png, gif, webp, svg.')
+    
+    def is_valid_image_url(self, url):
+        """Check if URL appears to point to an image based on extension or known image hosting domains"""
+        try:
+            # Parse URL to check if it's properly formatted
+            parsed = urlparse(url)
+            
+            # For relative URLs (like /static/...), we only check the path
+            # For absolute URLs, we need scheme and netloc
+            if not parsed.path:
+                return False
+            
+            if parsed.scheme and not parsed.netloc:
+                return False
+            
+            # Special handling for Instagram CDN URLs
+            if 'cdninstagram.com' in parsed.netloc:
+                # Instagram CDN URLs are always images, even without file extensions
+                return True
+            
+            # Special handling for other known image hosting services
+            image_hosting_domains = [
+                'images.unsplash.com',
+                'via.placeholder.com',
+                'picsum.photos',
+                'imgur.com',
+                'i.imgur.com'
+            ]
+            
+            if any(domain in parsed.netloc for domain in image_hosting_domains):
+                return True
+            
+            # Check if URL path ends with common image extensions
+            path = parsed.path.lower()
+            image_extensions = ('.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.bmp', '.tiff', '.ico')
+            
+            # Allow URLs that end with image extensions or don't have extensions (could be dynamic URLs)
+            return path.endswith(image_extensions) or '.' not in path.split('/')[-1]
+        except Exception:
+            # If we can't parse the URL, let Django's URLField handle it
+            return True
 
 
 MONTH_CHOICES = [
@@ -18,10 +72,6 @@ MONTHS_DE = {0: 'Januar', 1: 'Februar', 2: 'März', 3: 'April', 4: 'Mai', 5: 'Ju
 
 
 class HeroSectionText(models.Model):
-    name_sq = models.CharField(max_length=255, default="", verbose_name="Name of Association Shqip")
-    name_en = models.CharField(max_length=255, default="", verbose_name="Name of Association English")
-    name_de = models.CharField(max_length=255, default="", verbose_name="Name of Association Deutsch")
-
     st_org_sq = models.CharField(max_length=255, verbose_name="Teksti siper titullit Shqip")
     st_org_en = models.CharField(max_length=255, verbose_name="Teksti siper titullit English")
     st_org_de = models.CharField(max_length=255, verbose_name="Teksti siper titullit Deutsch")
@@ -147,7 +197,7 @@ class TeamMember(models.Model):
     description_en = models.TextField(verbose_name="Description English")
     description_de = models.TextField(verbose_name="Beschreibung Deutsch")
 
-    image = models.ImageField(upload_to="team/", verbose_name="Foto")
+    profile_image_url = ImageURLField(verbose_name="Foto URL", default="https://via.placeholder.com/300x300?text=Team+Member")
     
     class Meta:
         verbose_name_plural = "Team Members"
@@ -321,7 +371,7 @@ class HackathonText(models.Model):
     register_button_en = models.CharField(max_length=255, verbose_name="Button English", default="Pre-Register Now")
     register_button_de = models.CharField(max_length=255, verbose_name="Button Deutsch", default="Jetzt Vorregistrieren")
 
-    image = models.ImageField(upload_to="hackathon_images/", verbose_name="Imazhi", null=True, blank=True)
+    image = ImageURLField(verbose_name="Imazhi URL", null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Summer Hackathon 2025 Translations"
@@ -349,23 +399,7 @@ class ContactUs(models.Model):
     
 
 
-class ContactInfo(models.Model):
-    address = models.CharField(max_length = 1024, 
-            default = "", blank = True, null = True, verbose_name = 'Adresa')
 
-    contact_nr = models.CharField(max_length = 32,
-            default = "", blank = True, null = True, verbose_name = 'Numri i kontaktit')
-
-    email = models.EmailField(default = None, blank = True, null = True, verbose_name = 'Emaili')
-
-    facebook_url = models.URLField(default = "", verbose_name = 'Linku i facebookut')
-    instagram_url = models.URLField(default = "", verbose_name = 'Linku i instagramit')
-    
-    class Meta:
-        verbose_name_plural = '(7) Infot rreth nesh (te kontaktit)'
-
-    def __str__(self):
-        return f"Infot e kontaktit (mos e fshi)"
 
 
 
@@ -444,4 +478,101 @@ class FooterText(models.Model):
 
     def __str__(self):
         return self.sitename_en
+
+
+# INSTAGRAM INTEGRATION MODELS
+class InstagramPost(models.Model):
+    """Model for manually curated Instagram posts"""
+    caption = models.TextField(verbose_name="Caption", blank=True, help_text="Instagram post caption")
+    post_url = models.URLField(verbose_name="Post URL", unique=True, help_text="Link to the original Instagram post")
+    display_order = models.IntegerField(default=0, verbose_name="Display Order", help_text="Order in which posts should be displayed (lower numbers first)")
+    is_active = models.BooleanField(default=True, verbose_name="Active", help_text="Whether this post should be displayed on the website")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
+    
+    # Post type and media information
+    post_type = models.CharField(
+        max_length=20, 
+        choices=[
+            ('image', 'Single Image'),
+            ('carousel', 'Multiple Images'),
+            ('video', 'Video'),
+            ('reel', 'Reel')
+        ],
+        default='image',
+        verbose_name="Post Type",
+        help_text="Type of Instagram post"
+    )
+    
+    # Primary media URL (first image or video thumbnail)
+    primary_media_url = models.URLField(
+        max_length=2000,
+        verbose_name="Primary Media URL", 
+        blank=True,
+        help_text="URL to the main/first image or video thumbnail"
+    )
+    
+    # Additional media URLs for carousel posts (stored as JSON)
+    media_urls = models.JSONField(
+        default=list,
+        blank=True,
+        verbose_name="Media URLs",
+        help_text="List of all media URLs for carousel posts (JSON format)"
+    )
+    
+    class Meta:
+        verbose_name = "Instagram Post"
+        verbose_name_plural = "Instagram Posts"
+        ordering = ['display_order', '-created_at']
+    
+    def __str__(self):
+        caption_preview = self.caption[:50] + "..." if len(self.caption) > 50 else self.caption
+        return f"Instagram Post {self.id}: {caption_preview or 'No caption'}"
+    
+    def get_all_media_urls(self):
+        """Get all media URLs including primary and additional ones"""
+        urls = []
+        if self.primary_media_url:
+            urls.append(self.primary_media_url)
+        if self.media_urls and isinstance(self.media_urls, list):
+            urls.extend(self.media_urls)
+        return urls
+    
+    def get_media_count(self):
+        """Get total number of media items"""
+        return len(self.get_all_media_urls())
+    
+    def is_carousel(self):
+        """Check if this is a carousel post with multiple images"""
+        return self.post_type == 'carousel' or self.get_media_count() > 1
+    
+    def get_primary_media_url(self):
+        """Get the primary media URL for display"""
+        return self.primary_media_url or (self.media_urls[0] if self.media_urls else "")
+
+
+class InstagramConfig(models.Model):
+    """Configuration settings for Instagram post display"""
+    posts_per_page = models.IntegerField(default=6, verbose_name="Posts Per Page", help_text="Number of Instagram posts to display on the homepage")
+    show_captions = models.BooleanField(default=True, verbose_name="Show Captions", help_text="Whether to display post captions")
+    max_caption_length = models.IntegerField(default=2000, verbose_name="Max Caption Length", help_text="Maximum number of characters to show in captions (0 for no limit)")
+    section_title_sq = models.CharField(max_length=255, default="Postimet tona në Instagram", verbose_name="Section Title (Albanian)")
+    section_title_en = models.CharField(max_length=255, default="Our Instagram Posts", verbose_name="Section Title (English)")
+    section_title_de = models.CharField(max_length=255, default="Unsere Instagram-Posts", verbose_name="Section Title (German)")
+    is_active = models.BooleanField(default=True, verbose_name="Enable Instagram Section", help_text="Whether to show the Instagram section on the website")
+    
+    class Meta:
+        verbose_name = "Instagram Configuration"
+        verbose_name_plural = "Instagram Configuration"
+    
+    def __str__(self):
+        return f"Instagram Config - {self.posts_per_page} posts per page"
+    
+    def save(self, *args, **kwargs):
+        # Ensure only one configuration instance exists
+        if not self.pk and InstagramConfig.objects.exists():
+            raise ValidationError('Only one Instagram configuration instance is allowed.')
+        return super().save(*args, **kwargs)
+
+
+
 

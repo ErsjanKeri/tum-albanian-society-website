@@ -1,0 +1,28 @@
+<!-- Page-specific SEO Meta Tags -->
+{% if meta.title %}
+<meta property="og:title" content="{{ meta.title }}" />
+<meta name="twitter:title" content="{{ meta.title }}" />
+{% endif %}
+
+{% if meta.description %}
+<meta property="og:description" content="{{ meta.description }}" />
+<meta name="twitter:description" content="{{ meta.description }}" />
+{% endif %}
+
+{% if meta.image %}
+<meta property="og:image" content="{{ meta.image }}" />
+<meta name="twitter:image" content="{{ meta.image }}" />
+{% endif %}
+
+{% if meta.url %}
+<meta property="og:url" content="{{ meta.url }}" />
+<meta name="twitter:url" content="{{ meta.url }}" />
+{% endif %}
+
+{% if meta.og_type %}
+<meta property="og:type" content="{{ meta.og_type }}" />
+{% endif %}
+
+{% if meta.keywords %}
+<meta name="keywords" content="{{ meta.keywords }}" />
+{% endif %}

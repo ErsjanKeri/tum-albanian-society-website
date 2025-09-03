@@ -1,3 +1,26 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load seo_tags %}
+
+{% block content %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!-- Page-specific SEO meta tags for contact page -->
+{% if LANGUAGE_CODE == 'sq' %}
+  {% seo_meta title="Kontakti - Shoqata e Studentëve Shqiptarë TUM" description="Kontaktoni Shoqatën e Studentëve Shqiptarë në TUM. Bashkohuni me komunitetin tonë dhe merrni pjesë në aktivitetet tona." og_type="website" %}
+{% elif LANGUAGE_CODE == 'de' %}
+  {% seo_meta title="Kontakt - TUM Albanische Studentenvereinigung" description="Kontaktieren Sie die Albanische Studentenvereinigung an der TUM. Treten Sie unserer Gemeinschaft bei und nehmen Sie an unseren Aktivitäten teil." og_type="website" %}
+{% else %}
+  {% seo_meta title="Contact - TUM Albanian Society" description="Contact the Albanian Society at Technical University of Munich. Join our community and participate in our activities." og_type="website" %}
+{% endif %}
+
+<!-- Contact Page Structured Data -->
+{% webpage_schema "ContactPage" %}
+
+<!-- Contact Page Breadcrumb Schema -->
+{% breadcrumb_schema breadcrumb_contact %}
+
 <!-- Contact Section -->
 <section id="contact" class="contact section">
     <!-- Section Title -->
@@ -134,3 +157,5 @@
             .catch(error => console.error("Error fetching IP:", error));
     });
 </script>
+
+{% endblock %}

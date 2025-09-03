@@ -1,22 +1,92 @@
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE|default:seo.current_language }}">
   <head>
     <meta charset="utf-8" />
-    
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>
-      TUM Albanian Society - Albanian Students at Technical University of Munich
-    </title>
-    <meta
-      name="description"
-      content="Connecting Albanian students and promoting cultural exchange at the Technical University of Munich"
-    />
-    <meta
-      name="keywords"
-      content="Albanian, TUM, Technical University Munich, student society, cultural exchange"
-    />
+    
+    <!-- SEO Meta Tags -->
+    <title>{{ seo.meta_title }}</title>
+    <meta name="description" content="{{ seo.meta_description }}" />
+    <meta name="keywords" content="{{ seo.meta_keywords }}" />
+    <meta name="author" content="{{ seo.author }}" />
+    <meta name="robots" content="{{ seo.robots }}" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="width" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ seo.canonical_url }}" />
+    
+    <!-- Alternate Language URLs (hreflang) -->
+    {% for lang in seo.alternate_languages %}
+    <link rel="alternate" hreflang="{{ lang.code }}" href="{{ lang.url }}" />
+    {% endfor %}
+    <link rel="alternate" hreflang="x-default" href="{{ seo.site_url }}" />
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="{{ seo.og_title }}" />
+    <meta property="og:description" content="{{ seo.og_description }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ seo.canonical_url }}" />
+    <meta property="og:image" content="{{ seo.default_image }}" />
+    <meta property="og:image:alt" content="{{ seo.site_name }} Logo" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:site_name" content="{{ seo.site_name }}" />
+    <meta property="og:locale" content="{% if seo.current_language == 'sq' %}sq_AL{% elif seo.current_language == 'de' %}de_DE{% else %}en_US{% endif %}" />
+    {% for lang in seo.alternate_languages %}
+    {% if lang.code != seo.current_language %}
+    <meta property="og:locale:alternate" content="{% if lang.code == 'sq' %}sq_AL{% elif lang.code == 'de' %}de_DE{% else %}en_US{% endif %}" />
+    {% endif %}
+    {% endfor %}
+    
+    <!-- Article-specific Open Graph tags (for blog posts or news) -->
+    <meta property="article:author" content="{{ seo.site_name }}" />
+    <meta property="article:publisher" content="{{ seo.site_url }}" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ seo.og_title }}" />
+    <meta name="twitter:description" content="{{ seo.og_description }}" />
+    <meta name="twitter:image" content="{{ seo.default_image }}" />
+    <meta name="twitter:image:alt" content="{{ seo.site_name }} Logo" />
+    <meta name="twitter:domain" content="{{ request.get_host }}" />
+    <meta name="twitter:url" content="{{ seo.canonical_url }}" />
+    {% if seo.twitter_handle %}
+    <meta name="twitter:site" content="{{ seo.twitter_handle }}" />
+    <meta name="twitter:creator" content="{{ seo.twitter_handle }}" />
+    {% endif %}
+    
+    <!-- Facebook App ID (if available) -->
+    {% if seo.facebook_app_id %}
+    <meta property="fb:app_id" content="{{ seo.facebook_app_id }}" />
+    {% endif %}
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="{{ seo.theme_color }}" />
+    <meta name="msapplication-TileColor" content="{{ seo.theme_color }}" />
+    <meta name="application-name" content="{{ seo.application_name }}" />
+    <meta name="apple-mobile-web-app-title" content="{{ seo.application_name }}" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileImage" content="{{ seo.default_image }}" />
+    <meta name="msapplication-config" content="none" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
 
     <!-- Favicons -->
     <link href="{% static 'assets/img/favicon.png' %}" rel="icon" />
@@ -47,6 +117,138 @@
 
     <!-- Main CSS File -->
     <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/instagram-clean.css' %}" rel="stylesheet" />
+    
+    <!-- Structured Data (Schema.org) -->
+    <!-- Website Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ seo.site_name }}",
+      "alternateName": "Albanian Students TUM",
+      "url": "{{ seo.site_url }}",
+      "description": "{{ seo.meta_description }}",
+      "inLanguage": ["en", "sq", "de"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "{{ seo.site_url }}?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ seo.site_name }}",
+        "url": "{{ seo.site_url }}"
+      }
+    }
+    </script>
+    
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ seo.site_name }}",
+      "alternateName": "Albanian Students TUM",
+      "url": "{{ seo.site_url }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ seo.default_image }}",
+        "width": 400,
+        "height": 400
+      },
+      "image": "{{ seo.default_image }}",
+      "description": "{{ seo.meta_description }}",
+      "foundingDate": "2020",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Arcisstraße 21",
+        "addressLocality": "Munich",
+        "addressRegion": "Bavaria",
+        "postalCode": "80333",
+        "addressCountry": "DE"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "General Inquiries",
+          "email": "info@tumalbaniansociety.de",
+          "url": "{{ seo.site_url }}#contact"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/albanian_students_tum",
+        "https://www.facebook.com/albanianstudents.tum"
+      ],
+      "memberOf": {
+        "@type": "Organization",
+        "name": "Technical University of Munich",
+        "url": "https://www.tum.de"
+      },
+      "keywords": "{{ seo.meta_keywords }}",
+      "knowsAbout": [
+        "Student Organizations",
+        "Cultural Exchange",
+        "Albanian Culture",
+        "Technical University Munich",
+        "Student Community"
+      ],
+      "areaServed": {
+        "@type": "Place",
+        "name": "Munich, Germany"
+      },
+      "subOrganization": {
+        "@type": "StudentOrganization",
+        "name": "{{ seo.site_name }}",
+        "parentOrganization": {
+          "@type": "CollegeOrUniversity",
+          "name": "Technical University of Munich",
+          "url": "https://www.tum.de"
+        }
+      }
+    }
+    </script>
+    
+    <!-- Local Business Schema for Physical Location -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "{{ seo.site_name }}",
+      "description": "{{ seo.meta_description }}",
+      "url": "{{ seo.site_url }}",
+      "telephone": "+49-89-289-01",
+      "email": "info@tumalbaniansociety.de",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Arcisstraße 21",
+        "addressLocality": "Munich",
+        "addressRegion": "Bavaria",
+        "postalCode": "80333",
+        "addressCountry": "DE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 48.1497,
+        "longitude": 11.5676
+      },
+      "openingHours": "Mo-Fr 09:00-17:00",
+      "priceRange": "Free",
+      "paymentAccepted": "Not applicable",
+      "currenciesAccepted": "EUR",
+      "areaServed": {
+        "@type": "City",
+        "name": "Munich",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Germany"
+        }
+      }
+    }
+    </script>
   </head>
 
   <script>
@@ -76,6 +278,9 @@
 
     <!-- Main JS File -->
     <script src="{% static 'assets/js/main.js' %}"></script>
+    
+    <!-- Instagram Enhancement JS -->
+    <script src="{% static 'assets/js/instagram.js' %}"></script>
 
     <script type="text/javascript">
       function setLang(lang) {
@@ -83,6 +288,36 @@
         $("#langForm").submit();
         return false;
       }
+      
+      // Enhanced image fallback system
+      document.addEventListener('DOMContentLoaded', function() {
+        // Add loading class to all images initially
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        
+        images.forEach(function(img) {
+          // Add loading state
+          img.classList.add('image-loading');
+          
+          // Remove loading state when image loads
+          img.addEventListener('load', function() {
+            this.classList.remove('image-loading');
+          });
+          
+          // Handle error with custom fallback logic
+          img.addEventListener('error', function() {
+            this.classList.remove('image-loading');
+            this.classList.add('image-error');
+            
+            // If it's a team image, use team placeholder
+            if (this.classList.contains('team-image')) {
+              this.src = '{% static "assets/img/team-placeholder.svg" %}';
+            } else {
+              // Use generic placeholder
+              this.src = '{% static "assets/img/placeholder.svg" %}';
+            }
+          });
+        });
+      });
     </script>
   </body>
 </html>

@@ -1,0 +1,171 @@
+{% load static %}
+{% load instagram_tags %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<div class="{{ css_class }}">
+    {% if embed_data.success and not is_fallback %}
+        <!-- Successful embed -->
+        <div class="instagram-post-header">
+            <div class="instagram-post-avatar">AS</div>
+            <div class="instagram-post-username">
+                <h4>albanian_students_tum</h4>
+                <span>Albanian Students TUM</span>
+            </div>
+            <div class="instagram-post-badge">Instagram</div>
+        </div>
+        <div class="instagram-embed-container">
+            {{ embed_data.html|safe }}
+        </div>
+        
+        {% if show_caption and caption %}
+            <div class="instagram-caption">
+                {% if needs_read_more %}
+                    <div class="caption-content">
+                        <div class="caption-truncated">
+                            {{ truncated_caption|safe }}
+                            <span class="caption-ellipsis">...</span>
+                        </div>
+                        <div class="caption-full" style="display: none;">
+                            {{ full_caption|safe }}
+                        </div>
+                        <button class="read-more-btn" data-expanded="false" aria-expanded="false">
+                            {% if LANGUAGE_CODE == 'sq' %}
+                                Lexo më shumë
+                            {% elif LANGUAGE_CODE == 'de' %}
+                                Mehr lesen
+                            {% else %}
+                                Read more
+                            {% endif %}
+                        </button>
+                    </div>
+                {% else %}
+                    <p>{{ full_caption|safe }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        <div class="instagram-actions">
+            <a href="{{ post.post_url }}" target="_blank" rel="noopener noreferrer" class="instagram-view-link" aria-label="View Instagram post">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+                {% if LANGUAGE_CODE == 'sq' %}
+                    Shiko në Instagram
+                {% elif LANGUAGE_CODE == 'de' %}
+                    Auf Instagram ansehen
+                {% else %}
+                    View on Instagram
+                {% endif %}
+            </a>
+        </div>
+    {% else %}
+        <!-- Fallback display -->
+        <div class="instagram-post-header">
+            <div class="instagram-post-avatar">AS</div>
+            <div class="instagram-post-username">
+                <h4>albanian_students_tum</h4>
+                <span>Albanian Students TUM</span>
+            </div>
+            <div class="instagram-post-badge">
+                {% if post.post_type == 'carousel' %}Carousel{% elif post.post_type == 'video' %}Video{% else %}Photo{% endif %}
+            </div>
+        </div>
+        <div class="instagram-fallback">
+            <div class="instagram-fallback-content">
+                {% if post.get_all_media_urls %}
+                    <!-- Show media if available -->
+                    <div class="instagram-fallback-media">
+                        <div class="instagram-media-overlay"></div>
+                        {% if post.is_carousel %}
+                            <!-- Carousel display -->
+                            <div class="instagram-carousel-fallback" 
+                                 role="region" 
+                                 aria-label="Instagram post carousel with {{ post.get_media_count }} images"
+                                 tabindex="0">
+                                <div class="instagram-carousel-container">
+                                    {% for media_url in post.get_all_media_urls|slice:":5" %}
+                                        <div class="instagram-carousel-item {% if forloop.first %}active{% endif %}"
+                                             role="tabpanel"
+                                             aria-label="Image {{ forloop.counter }} of {{ post.get_media_count }}">
+                                            <img data-src="{{ media_url }}" 
+                                                 alt="{% if caption %}{{ caption|truncatechars:50 }}{% else %}Instagram post image {{ forloop.counter }}{% endif %}" 
+                                                 class="instagram-fallback-image lazy" 
+                                                 loading="lazy"
+                                                 width="400"
+                                                 height="400">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% if post.get_media_count > 1 %}
+                                    <div class="instagram-carousel-indicator" aria-live="polite">
+                                        <span class="carousel-icon">📷</span>
+                                        <span class="carousel-count">1 of {{ post.get_media_count }} images</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <!-- Single image display -->
+                            <img data-src="{{ post.get_primary_media_url }}" 
+                                 alt="{% if caption %}{{ caption|truncatechars:50 }}{% else %}Instagram post{% endif %}" 
+                                 class="instagram-fallback-image lazy" 
+                                 loading="lazy"
+                                 width="400"
+                                 height="400">
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <!-- Show icon if no media -->
+                    <div class="instagram-fallback-icon" aria-hidden="true">
+                        {% if post.is_carousel %}🎠{% else %}📷{% endif %}
+                    </div>
+                {% endif %}
+                
+                {% if show_caption and caption %}
+                    <div class="instagram-fallback-caption">
+                        {% if needs_read_more %}
+                            <div class="caption-content">
+                                <div class="caption-truncated">
+                                    {{ truncated_caption|safe }}
+                                    <span class="caption-ellipsis">...</span>
+                                </div>
+                                <div class="caption-full" style="display: none;">
+                                    {{ full_caption|safe }}
+                                </div>
+                                <button class="read-more-btn" data-expanded="false" aria-expanded="false">
+                                    {% if LANGUAGE_CODE == 'sq' %}
+                                        Lexo më shumë
+                                    {% elif LANGUAGE_CODE == 'de' %}
+                                        Mehr lesen
+                                    {% else %}
+                                        Read more
+                                    {% endif %}
+                                </button>
+                            </div>
+                        {% else %}
+                            <p>{{ full_caption|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                
+                <div class="instagram-fallback-actions">
+                    <a href="{{ post.post_url }}" target="_blank" rel="noopener noreferrer" class="instagram-fallback-link" aria-label="View Instagram post">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                        {% if LANGUAGE_CODE == 'sq' %}
+                            Shiko në Instagram
+                        {% elif LANGUAGE_CODE == 'de' %}
+                            Auf Instagram ansehen
+                        {% else %}
+                            View on Instagram
+                        {% endif %}
+                    </a>
+                </div>
+                
+                {% if embed_data.error and False %}
+                    <!-- Hide error details from users, only show in debug mode -->
+                    <div class="instagram-error-info">
+                        <small class="text-muted">{{ embed_data.error }}</small>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>

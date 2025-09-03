@@ -30,6 +30,7 @@ else:
         'tum-albanian-society-website.vercel.app',
         'localhost',
         '127.0.0.1',
+        'testserver',  # For Django test client
     ]
 
 
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.seo_context',
             ],
         },
     },
@@ -82,7 +84,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-# askdfjhaskldfhjaslkdfjh
+# 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -194,10 +196,37 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_SECONDS = 31536000  # 1 year
     SECURE_REDIRECT_EXEMPT = []
-    SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = False  # Disabled for local testing
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     USE_TZ = True
     
     # Additional security headers
     X_FRAME_OPTIONS = 'DENY'
     SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+
+# Instagram Integration Settings
+INSTAGRAM_ACCESS_TOKEN = os.environ.get('INSTAGRAM_ACCESS_TOKEN', None)
+INSTAGRAM_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
+
+# Logging configuration for Instagram service
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'main.services.instagram_service': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'main.utils.cache_utils': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

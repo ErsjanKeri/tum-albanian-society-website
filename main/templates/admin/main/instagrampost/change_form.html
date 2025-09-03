@@ -1,0 +1,29 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls static %}
+
+{% block submit_buttons_bottom %}
+    <div class="submit-row">
+        {% if show_save %}<input type="submit" value="{% trans 'Save' %}" class="default" name="_save">{% endif %}
+        {% if show_delete_link %}
+            {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+            <p class="deletelink-box"><a href="{{ delete_url }}" class="deletelink">{% trans "Delete" %}</a></p>
+        {% endif %}
+        {% if show_save_as_new %}<input type="submit" value="{% trans 'Save as new' %}" name="_saveasnew">{% endif %}
+        {% if show_save_and_add_another %}<input type="submit" value="{% trans 'Save and add another' %}" name="_addanother">{% endif %}
+        {% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue">{% endif %}
+        
+        {% if original %}
+            <input type="submit" value="💾 Save & Preview" name="_preview" style="background: #E50914; color: white; border: none; padding: 10px 15px; border-radius: 4px; margin-left: 10px; cursor: pointer; font-weight: 500;">
+            <a href="{% url 'instagram_post_preview' post_id=original.pk %}" target="_blank" style="background: #28a745; color: white; padding: 10px 15px; border-radius: 4px; text-decoration: none; margin-left: 5px; display: inline-block; font-weight: 500;">👁️ Preview</a>
+        {% else %}
+            <input type="submit" value="💾 Save & Preview" name="_preview" style="background: #E50914; color: white; border: none; padding: 10px 15px; border-radius: 4px; margin-left: 10px; cursor: pointer; font-weight: 500;">
+        {% endif %}
+        
+        <a href="{% url 'instagram_quick_add' %}" style="background: #E50914; color: white; padding: 8px 12px; border-radius: 4px; text-decoration: none; margin-left: 5px; display: inline-block; font-weight: 500;">➕ Quick Add</a>
+    </div>
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/instagram-clean.css' %}">
+{% endblock %}

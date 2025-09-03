@@ -1,0 +1,529 @@
+/*--------------------------------------------------------------
+# Clean Instagram Section Styles
+--------------------------------------------------------------*/
+.instagram {
+  padding: 80px 0;
+  background-color: var(--background-color);
+}
+
+.instagram .instagram-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.instagram .instagram-header .instagram-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: #E50914;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.instagram .instagram-header .instagram-icon:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(229, 9, 20, 0.3);
+}
+
+.instagram .instagram-header .instagram-icon i {
+  font-size: 28px;
+  color: white;
+}
+
+.instagram .instagram-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin-bottom: 15px;
+}
+
+.instagram .instagram-header p {
+  color: var(--default-color);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Instagram Grid Layout */
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .instagram-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Instagram Post Cards */
+.instagram-post-card {
+  background: var(--surface-color);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.instagram-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Instagram Post Wrapper */
+.instagram-post-wrapper {
+  height: 100%;
+}
+
+/* Instagram Post Header */
+.instagram-post-header {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.instagram-post-avatar {
+  width: 36px;
+  height: 36px;
+  background: #E50914;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.instagram-post-username {
+  flex: 1;
+}
+
+.instagram-post-username h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.instagram-post-username span {
+  font-size: 12px;
+  color: #666;
+}
+
+.instagram-post-badge {
+  background: #E50914;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Instagram Fallback Styles */
+.instagram-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.instagram-fallback-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+}
+
+.instagram-fallback-media {
+  position: relative;
+  flex: 1;
+  min-height: 280px;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instagram-fallback-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.instagram-post-card:hover .instagram-fallback-image {
+  transform: scale(1.05);
+}
+
+/* Carousel Fallback */
+.instagram-carousel-fallback {
+  position: relative;
+  height: 100%;
+}
+
+.instagram-carousel-container {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.instagram-carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.instagram-carousel-item.active {
+  opacity: 1;
+}
+
+.instagram-carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.instagram-carousel-indicator {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Instagram Caption */
+.instagram-fallback-caption {
+  padding: 15px 20px;
+  background: var(--surface-color);
+}
+
+.instagram-fallback-caption p {
+  margin: 0;
+  color: var(--default-color);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Instagram Actions */
+.instagram-fallback-actions {
+  padding: 15px 20px;
+  background: var(--surface-color);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.instagram-fallback-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #E50914;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.instagram-fallback-link:hover {
+  color: #c7080f;
+  transform: translateY(-1px);
+}
+
+.instagram-fallback-link i {
+  font-size: 16px;
+}
+
+/* Instagram CTA Section */
+.instagram-cta {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.instagram-follow-card {
+  background: var(--surface-color);
+  border-radius: 12px;
+  padding: 40px 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.instagram-follow-content .instagram-logo {
+  width: 50px;
+  height: 50px;
+  background: #E50914;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.instagram-follow-content .instagram-logo i {
+  font-size: 24px;
+  color: white;
+}
+
+.instagram-follow-content h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin-bottom: 15px;
+}
+
+.instagram-follow-content p {
+  color: var(--default-color);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.btn-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #E50914;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.btn-instagram:hover {
+  background: #c7080f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(229, 9, 20, 0.3);
+  color: white;
+}
+
+.btn-instagram i {
+  font-size: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .instagram {
+    padding: 60px 0;
+  }
+  
+  .instagram-follow-card {
+    padding: 30px 20px;
+  }
+  
+  .instagram-fallback-media {
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .instagram-grid {
+    gap: 15px;
+  }
+  
+  .instagram-post-header {
+    padding: 12px 15px;
+  }
+  
+  .instagram-fallback-caption,
+  .instagram-fallback-actions {
+    padding: 12px 15px;
+  }
+}
+/*----
+----------------------------------------------------------
+# Instagram Admin Interface Styles
+--------------------------------------------------------------*/
+
+/* Admin form styling for Instagram posts */
+.form-row .field-media_urls_text textarea {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  background-color: #f8f9fa !important;
+  border: 2px solid #e1e5e9 !important;
+  border-radius: 6px !important;
+  padding: 12px !important;
+}
+
+.form-row .field-media_urls_text textarea:focus {
+  border-color: #E50914 !important;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1) !important;
+  outline: none !important;
+}
+
+.form-row .field-post_url input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E50914'%3E%3Cpath d='M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: 8px center !important;
+  background-size: 16px !important;
+  padding-left: 32px !important;
+  border: 2px solid #e1e5e9 !important;
+  border-radius: 6px !important;
+}
+
+.form-row .field-post_url input:focus {
+  border-color: #E50914 !important;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1) !important;
+  outline: none !important;
+}
+
+/* Admin submit buttons styling */
+.submit-row input[type="submit"] {
+  background: #E50914 !important;
+  border: none !important;
+  color: white !important;
+  padding: 10px 15px !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.submit-row input[type="submit"]:hover {
+  background: #c7080f !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(229, 9, 20, 0.3) !important;
+}
+
+.submit-row input[type="submit"].default {
+  background: #E50914 !important;
+}
+
+.submit-row input[name="_preview"] {
+  background: #E50914 !important;
+  margin-left: 10px !important;
+}
+
+.submit-row a {
+  background: #28a745 !important;
+  color: white !important;
+  padding: 10px 15px !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  margin-left: 5px !important;
+  display: inline-block !important;
+  transition: all 0.2s ease !important;
+}
+
+.submit-row a:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Admin fieldset styling */
+.module h2, .module caption, .inline-group h2 {
+  background: #E50914 !important;
+  color: white !important;
+  border-radius: 6px 6px 0 0 !important;
+  padding: 12px 15px !important;
+  font-weight: 600 !important;
+}
+
+.form-row .help {
+  color: #666 !important;
+  font-size: 12px !important;
+  margin-top: 5px !important;
+}
+
+/* Admin list view styling */
+.result_list th {
+  background: #E50914 !important;
+  color: white !important;
+}
+
+.result_list th a:link, .result_list th a:visited {
+  color: white !important;
+}
+
+.result_list .action-checkbox-column {
+  background: #E50914 !important;
+}
+
+/* Admin navigation styling */
+.breadcrumbs {
+  background: #f8f9fa !important;
+  border-bottom: 2px solid #E50914 !important;
+}
+
+.breadcrumbs a {
+  color: #E50914 !important;
+}
+
+/* Admin form field focus states */
+input[type="text"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #E50914 !important;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1) !important;
+  outline: none !important;
+}
+
+/* Admin error styling */
+.errorlist {
+  background: #f8d7da !important;
+  color: #721c24 !important;
+  border: 1px solid #f5c6cb !important;
+  border-radius: 6px !important;
+  padding: 10px !important;
+  margin: 5px 0 !important;
+}
+
+.errorlist li {
+  list-style: none !important;
+  margin: 0 !important;
+}
+
+/* Admin success messages */
+.messagelist .success {
+  background: #d4edda !important;
+  color: #155724 !important;
+  border: 1px solid #c3e6cb !important;
+  border-radius: 6px !important;
+}
+
+/* Admin warning messages */
+.messagelist .warning {
+  background: #fff3cd !important;
+  color: #856404 !important;
+  border: 1px solid #ffeaa7 !important;
+  border-radius: 6px !important;
+}
+
+/* Admin info messages */
+.messagelist .info {
+  background: #d1ecf1 !important;
+  color: #0c5460 !important;
+  border: 1px solid #bee5eb !important;
+  border-radius: 6px !important;
+}

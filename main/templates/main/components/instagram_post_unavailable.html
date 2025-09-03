@@ -1,0 +1,108 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<div class="instagram-post-unavailable">
+    <div class="unavailable-content">
+        <div class="unavailable-icon">
+            {% if reason == "deleted" %}
+                🗑️
+            {% elif reason == "private" %}
+                🔒
+            {% elif reason == "restricted" %}
+                ⚠️
+            {% else %}
+                📷
+            {% endif %}
+        </div>
+        
+        <div class="unavailable-message">
+            {% if reason == "deleted" %}
+                {% if LANGUAGE_CODE == 'sq' %}
+                    <h4>Postimi u fshi</h4>
+                    <p>Ky postim në Instagram nuk është më i disponueshëm.</p>
+                {% elif LANGUAGE_CODE == 'de' %}
+                    <h4>Post gelöscht</h4>
+                    <p>Dieser Instagram-Post ist nicht mehr verfügbar.</p>
+                {% else %}
+                    <h4>Post Deleted</h4>
+                    <p>This Instagram post is no longer available.</p>
+                {% endif %}
+            {% elif reason == "private" %}
+                {% if LANGUAGE_CODE == 'sq' %}
+                    <h4>Postimi privat</h4>
+                    <p>Ky postim është privat dhe nuk mund të shfaqet.</p>
+                {% elif LANGUAGE_CODE == 'de' %}
+                    <h4>Privater Post</h4>
+                    <p>Dieser Post ist privat und kann nicht angezeigt werden.</p>
+                {% else %}
+                    <h4>Private Post</h4>
+                    <p>This post is private and cannot be displayed.</p>
+                {% endif %}
+            {% elif reason == "restricted" %}
+                {% if LANGUAGE_CODE == 'sq' %}
+                    <h4>Postimi i kufizuar</h4>
+                    <p>Ky postim ka kufizime dhe nuk mund të shfaqet.</p>
+                {% elif LANGUAGE_CODE == 'de' %}
+                    <h4>Eingeschränkter Post</h4>
+                    <p>Dieser Post ist eingeschränkt und kann nicht angezeigt werden.</p>
+                {% else %}
+                    <h4>Restricted Post</h4>
+                    <p>This post is restricted and cannot be displayed.</p>
+                {% endif %}
+            {% else %}
+                {% if LANGUAGE_CODE == 'sq' %}
+                    <h4>Postimi nuk është i disponueshëm</h4>
+                    <p>Ky postim në Instagram nuk mund të ngarkohet momentalisht.</p>
+                {% elif LANGUAGE_CODE == 'de' %}
+                    <h4>Post nicht verfügbar</h4>
+                    <p>Dieser Instagram-Post kann derzeit nicht geladen werden.</p>
+                {% else %}
+                    <h4>Post Unavailable</h4>
+                    <p>This Instagram post cannot be loaded at the moment.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+        
+        <div class="unavailable-actions">
+            <a href="{{ post.post_url }}" target="_blank" rel="noopener noreferrer" class="instagram-unavailable-link">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+                {% if LANGUAGE_CODE == 'sq' %}
+                    Provo në Instagram
+                {% elif LANGUAGE_CODE == 'de' %}
+                    Auf Instagram versuchen
+                {% else %}
+                    Try on Instagram
+                {% endif %}
+            </a>
+            
+            {% if show_retry %}
+                <button class="retry-post-btn" data-post-url="{{ post.post_url }}" aria-label="Retry loading post">
+                    <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+                    {% if LANGUAGE_CODE == 'sq' %}
+                        Provo përsëri
+                    {% elif LANGUAGE_CODE == 'de' %}
+                        Erneut versuchen
+                    {% else %}
+                        Retry
+                    {% endif %}
+                </button>
+            {% endif %}
+        </div>
+        
+        {% if post.caption %}
+            <div class="unavailable-caption">
+                <p><strong>
+                    {% if LANGUAGE_CODE == 'sq' %}
+                        Përshkrimi origjinal:
+                    {% elif LANGUAGE_CODE == 'de' %}
+                        Ursprüngliche Beschreibung:
+                    {% else %}
+                        Original caption:
+                    {% endif %}
+                </strong></p>
+                <p class="caption-text">{{ post.caption|truncatewords:20 }}</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
